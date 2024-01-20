@@ -1,0 +1,23 @@
+CREATE DEFINER=`root`@`localhost` FUNCTION `inscriptos_por_curso`(inscriptos INT, actividades INT) RETURNS float
+    DETERMINISTIC
+BEGIN
+DECLARE inscriptos_curso FLOAT;
+SET inscriptos_curso = inscriptos / actividades;
+RETURN inscriptos_curso;
+END
+
+SELECT @cantidad_inscriptos := count(id_inscripcion) FROM inscripciones;
+SELECT @cantidad_actividades := count(*) FROM actividades;
+SELECT inscriptos_por_curso(@cantidad_inscriptos,@cantidad_actividades)
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `desembolso_por_trabajador`(gastos FLOAT,trabajadores INT) RETURNS int
+    DETERMINISTIC
+BEGIN
+DECLARE desembolso FLOAT;
+SET desembolso = gastos / trabajadores;
+RETURN desembolso;
+END
+
+SELECT @cantidad_gastada := sum(monto) FROM flujo_de_caja;
+SELECT @cantidad_trabajadores := count(id_trabajador) FROM trabajadores;
+SELECT desembolso_por_trabajador(@cantidad_gastada,@cantidad_trabajadores)
