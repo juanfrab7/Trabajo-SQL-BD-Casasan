@@ -1,0 +1,22 @@
+CREATE VIEW administrativos AS
+SELECT id_trabajador, nombre, apellido FROM dbcasasan.trabajadores
+WHERE funcion LIKE 'Administrativo'
+ORDER BY (apellido) ASC;
+
+CREATE VIEW actividades_olavarria AS
+SELECT nombre_actividad, horario_actividad,capacidad_talleractividades_olavarria FROM actividades
+WHERE id_sede LIKE '1';
+
+CREATE VIEW pagos_sobre_promedio AS
+SELECT id_pago, id_trabajador, monto FROM flujo_de_caja
+WHERE monto > (SELECT AVG(monto)FROM flujo_de_caja);
+
+CREATE VIEW miembros_menores AS
+SELECT id_miembro, nombre, apellido, nacimiento
+FROM miembros
+WHERE nacimiento > '2000-01-01'
+ORDER BY(apellido);
+
+CREATE VIEW total_pagado_colaborador_21 AS 
+SELECT SUM(monto) FROM flujo_de_caja
+WHERE id_trabajador = '21';
