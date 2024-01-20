@@ -1,0 +1,119 @@
+CREATE DATABASE dbcasasan;
+USE dbcasasan;
+CREATE TABLE `trabajadores` (
+  `id_trabajador` int PRIMARY KEY not null auto_increment,
+  `nombre` varchar(255) not null,
+  `apellido` varchar(255) not null,
+  `telefono` int,
+  `correo` varchar(255),
+  `direccion` varchar(255),
+  `funcion` varchar(255),
+  `nacimiento` date,
+  `sueldo` int,
+  `cbu` int
+);
+
+CREATE TABLE `consejo_directivo` (
+  `id_directivo` int PRIMARY KEY not null auto_increment,
+  `nombre` varchar(255),
+  `apellido` varchar(255),
+  `telefono` int,
+  `correo` varchar(255),
+  `direccion` varchar(255),
+  `funcion` varchar(255)
+);
+
+
+
+
+
+
+
+CREATE TABLE `cuentas_bancarias` (
+  `id_cuenta` int PRIMARY KEY not null auto_increment,
+  `banco` varchar(30),
+  `sucursal` varchar(255),
+  `numero_cuenta` int,
+  `tipo` varchar(55),
+  `saldo` int
+);
+
+CREATE TABLE `flujo_de_caja` (
+  `id_pago` int PRIMARY KEY not null auto_increment,
+  `id_cuenta` int,
+  `id_trabajador` int,
+  `monto` int,
+  `tipo` varchar(45)
+);
+
+CREATE TABLE `sedes` (
+  `id_sede` int PRIMARY KEY not null auto_increment,
+  `nombre_sede` varchar(255),
+  `direccion_sede` varchar(255),
+  `correo_sede` varchar(255),
+  `telefono_sede` int,
+  `codigo_postal` int
+);
+
+
+
+
+
+
+CREATE TABLE `miembros` (
+  `id_miembro` int PRIMARY KEY not null auto_increment,
+  `nombre` varchar(255) not null,
+  `apellido` varchar(255) not null,
+  `correo` varchar(255),
+  `telefono` int,
+  `barrio` varchar(30),
+  `nacimiento` date,
+  `centro_jubilados` boolean
+);
+
+CREATE TABLE `actividades` (
+  `id_actividad` int PRIMARY KEY not null auto_increment,
+  `nombre_actividad` varchar(255) not null,
+  `id_sede` int,
+  `id_trabajador` int,
+  `día_actividad` varchar(30),
+  `horario_actividad` time,
+  `capacidad_taller` int
+);
+
+CREATE TABLE `inscripciones` (
+  `id_inscripcion` int PRIMARY KEY not null auto_increment,
+  `id_miembro` int,
+  `id_actividad` int,
+  `fecha_inscripcion` date
+);
+
+
+
+
+
+
+ALTER TABLE inscripciones
+ADD CONSTRAINT FK_miembro
+FOREIGN KEY (id_miembro) REFERENCES miembros(id_miembro);
+
+ALTER TABLE inscripciones
+ADD CONSTRAINT FK_actividad
+FOREIGN KEY (id_actividad) REFERENCES actividades(id_actividad);
+
+ALTER TABLE flujo_de_caja
+ADD CONSTRAINT FK_cuenta
+FOREIGN KEY (id_cuenta) REFERENCES cuentas_bancarias(id_cuenta);
+
+ALTER TABLE flujo_de_caja
+ADD CONSTRAINT FK_trabajador
+FOREIGN KEY (id_trabajador) REFERENCES trabajadores(id_trabajador);
+
+ALTER TABLE actividades
+ADD CONSTRAINT FK_sede
+FOREIGN KEY (id_sede) REFERENCES sedes(id_sede);
+
+
+ALTER TABLE actividades
+ADD CONSTRAINT FK_trabajador_actividades
+FOREIGN KEY (id_trabajador) REFERENCES trabajadores(id_trabajador);
