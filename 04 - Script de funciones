@@ -1,3 +1,5 @@
+-- Función métrica inscriptos por curso
+
 CREATE DEFINER=`root`@`localhost` FUNCTION `inscriptos_por_curso`(inscriptos INT, actividades INT) RETURNS float
     DETERMINISTIC
 BEGIN
@@ -10,6 +12,8 @@ SELECT @cantidad_inscriptos := count(id_inscripcion) FROM inscripciones;
 SELECT @cantidad_actividades := count(*) FROM actividades;
 SELECT inscriptos_por_curso(@cantidad_inscriptos,@cantidad_actividades)
 
+-- Función métrica desembolso total sobre cantidad de trabajadores
+
 CREATE DEFINER=`root`@`localhost` FUNCTION `desembolso_por_trabajador`(gastos FLOAT,trabajadores INT) RETURNS int
     DETERMINISTIC
 BEGIN
@@ -21,3 +25,49 @@ END
 SELECT @cantidad_gastada := sum(monto) FROM flujo_de_caja;
 SELECT @cantidad_trabajadores := count(id_trabajador) FROM trabajadores;
 SELECT desembolso_por_trabajador(@cantidad_gastada,@cantidad_trabajadores)
+
+-- Función cantidad anotados en un curso
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `cantidad_anotados`(actividad INT) RETURNS varchar(255) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+DECLARE anotados INT;
+DECLARE respuesta VARCHAR(255);
+DECLARE nombre VARCHAR(255);
+
+SELECT nombre_actividad INTO nombre FROM actividades  WHERE id_actividad = actividad;
+SELECT COUNT(id_actividad) INTO anotados FROM inscripciones WHERE id_actividad = actividad;
+SET respuesta = CONCAT(
+'La cantidad de anotados del curso numero',actividad,' ',nombre,' es: ',anotados);
+RETURN respuesta;
+END
+
+-- Función total de pagos y cantidad de pagos a trabajador
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `pagado_trabajador`(id_ingresado INT) RETURNS varchar(255) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+DECLARE apellido_trabajador VARCHAR(255);
+DECLARE pagado_trabajador FLOAT;
+DECLARE resultado VARCHAR(255);
+DECLARE cantidad_pagos INT;
+
+SELECT apellido INTO apellido_trabajador
+FROM trabajadores
+WHERE id_trabajador = id_ingresado;
+
+SELECT SUM(monto) INTO pagado_trabajador
+FROM flujo_de_caja
+WHERE id_trabajador = id_ingresado;
+
+SELECT COUNT(monto) INTO cantidad_pagos
+FROM flujo_de_caja
+WHERE id_trabajador = id_ingresado;
+
+SET resultado = CONCAT(
+'Pagado al trabajador ', apellido_trabajador, ': ',
+'Total de gastos: ', pagado_trabajador, ' // ' ,
+'Cantidad de pagos: ', cantidad_pagos);
+RETURN resultado;
+END
+
