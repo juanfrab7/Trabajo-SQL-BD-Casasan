@@ -28,26 +28,158 @@ VALUES
 
 
 
-INSERT INTO actividades(nombre_actividad,id_sede,id_trabajador,día_actividad,horario_actividad,capacidad_taller)
+INSERT INTO actividades(nombre_actividad,id_sede,día_actividad,horario_actividad,capacidad_taller)
 VALUES
-('Danzas arabes', 1, 26, 'Martes', '18:00:00',20),
-('Consulta psicológica', 1, 19, 'Lunes y Sábado', '14:00:00',1),
-('Tango', 1, 6, 'Lunes y Miércoles y Viernes', '16:00:00',10),
-('Kung Fu', 1, 33, 'Martes y Jueves', '18:00:00',16),
-('Peluquería', 1, 3, 'Lunes a Viernes', '15:00:00',100),
-('Urbano', 1, 10, 'Lunes y Miércoles', '17:00:00',20),
-('Folklore', 1, 16, 'Miércoles y Viernes', '19:00:00',25),
-('Teatro', 1, 7, ' Martes y Jueves ', '20:00:00',30),
-('Alfabetización Digital', 2, 15, 'Lunes y Miércoles', '18:00:00',20),
-('Fotografía', 2, 12, 'Lunes y Miércoles', '18:00:00',10),
-('Baile adultos', 1, 8, 'Martes y Jueves', '18:00:00',20),
-('Manicura y pedicuría', 1, 9, ' Miércoles y Viernes', '15:00:00',100),
-('Dibujo', 2, 11, 'Martes y Jueves', '17:00:00',14),
-('Murga', 1, 19, 'Lunes y Miércoles y Viernes', '20:00:00',20),
-('Apoyo escolar', 2, 25, 'Lunes y Miércoles y Viernes', '17:00:00',10),
-('Robotica', 2, 23, 'Martes y Jueves', '16:00:00',20),
-('Diseño de páginas web', 2, 26, 'Miércoles y Viernes', '18:00:00',20),
-('Freestyle', 2, 27, 'Martes y Viernes', '17:00:00',30),
-('Zumba', 1, 28, 'Martes y Jueves', '19:00:00',30),
-('Bingo para adultos', 1, 39, 'Lunes y Miércoles y viernes', '15:00:00',40),
-('Panaderia', 1, 38, 'Martes y Jueves', '15:00:00',20);
+('Administracion', 3, 'Lunes a Viernes', '09:00:00',5),
+('Danzas arabes', 1, 'Martes', '18:00:00',20),
+('Consulta psicológica', 1, 'Lunes y Sábado', '14:00:00',1),
+('Tango', 1,'Lunes y Miércoles y Viernes', '16:00:00',10),
+('Kung Fu', 1,'Martes y Jueves', '18:00:00',16),
+('Peluquería', 1,'Lunes a Viernes', '15:00:00',100),
+('Urbano', 1,'Lunes y Miércoles', '17:00:00',20),
+('Folklore', 1,'Miércoles y Viernes', '19:00:00',25),
+('Teatro', 1,' Martes y Jueves ', '20:00:00',30),
+('Alfabetización Digital', 2, 'Lunes y Miércoles', '18:00:00',20),
+('Fotografía', 2, 'Lunes y Miércoles', '18:00:00',10),
+('Baile adultos', 1, 'Martes y Jueves', '18:00:00',20),
+('Manicura y pedicuría', 1,' Miércoles y Viernes', '15:00:00',100),
+('Dibujo', 2, 'Martes y Jueves', '17:00:00',14),
+('Murga', 1,'Lunes y Miércoles y Viernes', '20:00:00',20),
+('Apoyo escolar', 2, 'Lunes y Miércoles y Viernes', '17:00:00',10),
+('Robotica', 2, 'Martes y Jueves', '16:00:00',20),
+('Diseño de páginas web', 2, 'Miércoles y Viernes', '18:00:00',20),
+('Freestyle', 2, 'Martes y Viernes', '17:00:00',30),
+('Zumba', 1, 'Martes y Jueves', '19:00:00',30),
+('Bingo para adultos', 1, 'Lunes y Miércoles y viernes', '15:00:00',40),
+('Panaderia', 1, 'Martes y Jueves', '15:00:00',20);
+
+
+
+
+INSERT INTO trabajadores(nombre,apellido,telefono,correo,direccion,funcion,id_actividad,nacimiento,sueldo,cbu)
+VALUES
+('Agustin','Garcia',1101741033,'a.garcia@gmail.com','Avenida Directorio 2230','Profesor',19,'1998-04-16',70000,3000001616),
+('Amanda','Giacobelli',1187234919,'amanda.giacobelli@gmail.com','Portela 554','Profesor',12,'1971-02-10',90000,3000001491),
+('Luciana','Gutierrez',1174801620,'lu_gutierrez@outlook.com','Avenida Martín Garcia 416','Profesor',15,'1993-05-23',50000,3000004120),
+('Martín','Pignatelli',1177409723,'martin.pignatelli@gmail.com','Avenida San Juan 4114','Profesor',5,'1988-11-04',85000,3000009301),
+('Agustina','Rivas',1192445970,'agus.rivas@gmail.com','La Rioja 433','Profesor',20,'1992-09-30',60000,3000009780),
+('Romina','Vitrelli',1156912587,'r_vitrelli@outlook.com','Chile 230','Profesor',2,'1994-07-19',75000,3000006471),
+('Mirtha','Dominguez',1137814690,'mirtadominguez1966@gmail.com',null,'Profesor',6,'1966-03-23',50000,3000002549),
+('Carlos','Gonzalezz',1123256107,'carlosgonzalez_1971@gmail.com','Avenida Almirante Brown 710','Profesor',22,'1971-08-03',60000,3000005410),
+('Sabrina','Dermian',1126541011,'sabrina.dermian@gmail.com','Adolfo Alsina 416','Profesor',16,'1989-12-03',55000,3000009431),
+('Daniela','Ortiz',1184631059,'dani_ortiz@gmail.com','Lavalleja 933','Profesor',3,'1986-01-19',100000,3000002888),
+('Lucrecia','Spinelli',1137901491,'l.spinelli@gmail.com','Ramon Falcon 3160','Profesor',7,'1987-07-30',65000,3000006908),
+('Clara','Rodriguez',1189361971,null,'Avenida Independencia 364','Profesor',21,'1958-12-22',0,null),
+('Jorge','DAntonio',1161983850,'jorge_dantonio_tango@gmail.com','Amenabar 6713','Profesor',4,'1978-03-26',90000,3000009117),
+('Alejandro','Dimas',1159036471,'ale_dimas@gmail.com','Mexico 1323','Profesor',17,'1989-10-07',90000,3000006170),
+('Mariel','Fernandez',1182736148,'mariel_fernandez89@gmail.com','Guemes 2594','Profesor',13,'1989-11-27',60000,3000006473),
+('Martina','Rossi',1195412633,'martina_rossi_93@gmail.com','Laprida 1626','Profesor',14,'1993-01-04',60000,3000002510),
+('Lucas','Romero',1169612987,'lucas.romero91@gmail.com','Constitución 1497','Profesor',18,'1991-10-08',90000,3000005517),
+('Vanesa','Ferrari',1169301710,'vane_ferrari@gmail.com','Avenida Jujuy 980','Profesor',9,'1983-10-09',80000,3000003790),
+('Paula','Rosales',1162807294,'pau_rosales@gmail.com','Catamarca 497','Profesor',11,'1998-04-16',70000,3000002490),
+('Horacio','Manfredi',1169701740,'horacio.manfredi.folklore@gmail.com','Estados Unidos 6540','Profesor',8,'1958-11-29',80000,3000004766),
+('Diego','Gianni',1178431790,'diego_gianni@gmail.com','Crisologo Larralde 4890','Profesor',10,'1990-08-25',80000,3000009676),
+('Tomas','Bertelli',1173491019,'tbertelli@casasan.com','Avenida Corrientes 880','Administrativo',1,'1995-02-03',120000,3000009694),
+('Lucia','Martinez',1149461719,'lmartinez@casasan.com','Sarmiento 323','Administrativo',1,'1992-06-06',150000,3000002426),
+('Rodolfo','Rabelli',1149708077,'rrabelli@casasan.com','Avenida Libertador 4660','Contador',1,'1968-10-22',300000,3000007137),
+('Oscar','Graziano',1189401673,'o.graziano@gmail.com','Avenida Córdoba 3743','Abogado',1,'1977-12-23',400000,3000006466),
+('Susana','Ortega',1123204718,'s.ortega@gmail.com','Avenida Belgrano 414','Maestranza',1,'1963-01-19',100000,3000008810),
+('Roxana','Ramirez',1129187097,'r.ramirez@gmail.com','Avenida Entre Rios 904','Maestranza',1,'1980-04-16',100000,3000006351);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo)
+VALUES
+(3,10,60000,'Contado'),
+(1,6,90000,'Contado'),
+(2,19,70000,'Contado'),
+(4,21,50000,'Transferencia'),
+(5,4,80000,'Contado'),
+(1,7,30000,'Contado'),
+(4,9,70000,'Transferencia'),
+(4,14,90000,'Contado'),
+(1,20,70000,'Contado'),
+(5,3,50000,'Transferencia'),
+(3,9,70000,'Contado'),
+(2,17,80000,'Transferencia'),
+(1,20,80000,'Contado'),
+(4,13,100000,'Transferencia'),
+(1,2,70000,'Contado'),
+(5,8,65000,'Contado'),
+(1,7,80000,'Contado'),
+(2,10,90000,'Transferencia'),
+(3,13,30000,'Contado'),
+(4,12,80000,'Transferencia');
+
+
+
+
+
+
+
+
+
+INSERT INTO miembros(nombre,apellido,correo,telefono,nacimiento,centro_jubilados)
+VALUES
+('Raul','Jimenez','raul_jimenez_1970@gmail.com',1158913647,'1970-05-16',True),
+('Domingo','Ortiz',null,1163407901,'1950-03-06',True),
+('Nestor','Basualdo', 'nbasualdo1972@gmail.com',1116069071,'1972-09-19',True),
+('Joaquín','Diez','joaco_diez@gmail.com',1163001580,'1993-05-16',False),
+('Lucas','Lopez','lucas_lopez_1992@gmail.com',1118852033,'1992-12-17',False),
+('Antonio','Rodriguez','raul_jimenez_1970@gmail.com',1158913647,'1970-05-16',True),
+('Lucia','Villagra','lu_villagra@gmail.com',1136947022,'1996-10-10',False),
+('David','Ortiz','david.ortiz.1991@outlook.com',1158203796,'1991-11-25',False),
+('Dante','Perdomenico','dante_perdo@gmail.com',1177139583,'2002-01-30',False),
+('Diego','Romeo','diego.romeo96@gmail.com',1136091719,'1996-09-27',False),
+('Luciano','Giganti','luciano.giganti@gmail.com',1128935567,'1987-10-11',False),
+('Azul','Dominguez','azul_dominguez@gmail.com',1193984514,'2001-12-12',False),
+('Lautaro','Navarro','lauti.navarro@gmail.com',1163904710,'1998-04-27',False),
+('Roque','Ferrari',null,1143408288,'1956-07-07',True),
+('Jazmin','Dieguez','jaz_dieguez@gmail.com',1166652329,'2005-11-02',False),
+('Perla','Giacomini','perlagiacomini@gmail.com',1177433016,'1951-06-28',True),
+('Nicolas','Santana','nico_santana@outlook.com',1124406600,null,False),
+('Rolando','Peña','rolopeña@gmail.com',1188091013,'1961-04-04',True),
+('Tomas','Rolon','tomi_rolon_97@gmail.com',1165018032,'1997-06-16',False),
+('Alejandro','Duarte','ale_duarte_1980@gmail.com',1183364941,'1980-05-20',False),
+('Melisa','Pirelli','meli.pirelli@gmail.com',1163209466,'1996-09-08',False),
+('Fabian','Diaz',null,1163689091,'1969-06-24',False),
+('Rodolfo','Di Natale','rodolfo_dinatale@gmail.com',1190164510,'1954-07-23',False),
+('Nelida','Perlaza',null,null,'1939-10-03',True),
+('Ramon','Nicoletti','ramon.nicoletti@gmail.com',1180919350,'1955-06-27',True),
+('Dario','Metilli','dario_metilli@gmail.com',1130335870,'1981-07-24',False),
+('Enrique','OConnor','quique_oconnor@gmail.com',1166201417,'1958-06-22',False),
+('German','Balbo','german.balbo@gmail.com',1180364940,'1985-05-26',False),
+('Franco','Germano','franco.germano88@gmail.com',1108475136,'1988-02-15',False),
+('Federico','Bersano','fede_bersano@gmail.com',1182254310,'1992-05-07',False),
+('Luis','Osorio','lus.osorio@gmail.com',1131334090,'1966-06-21',False),
+('Daniel','Castro','dani.castro73@gmail.com',1195524733,'1973-03-07',False),
+('Carmen','Gavilan',null,1187936023,'1938-12-27',True),
+('Angel','Serra',null,1100654398,'1950-09-26',True),
+('Javier','Luna','javi_luna85@gmail.com',1194325724,'1985-05-19',False),
+('Marina','Escobar','maru.escobar@outlook.com',1161201912,'1983-04-19',False),
+('Camila','Uriarte','cami.uriarte@gmail.com',1160665980,'1991-12-04',False),
+('Monica','Spagnuolo','monica_spagnuolo@gmail.com',1160309941,'1962-10-06',True),
+('Roxana','Galindez','rogalindez1990@outlook.com',1566101911,'1990-11-12',False);
+
+
+INSERT INTO inscripciones(id_miembro,id_actividad,fecha_inscripcion)
+VALUES
+(1, 21, '2024-01-02'),
+(2, 21, '2024-01-07'),
+(3, 21, '2024-01-06'),
+(6, 21, '2024-01-02'),
+(4, 10, '2024-01-03'),
+(8, 10, '2024-01-06'),
+(9, 10, '2024-01-04');
