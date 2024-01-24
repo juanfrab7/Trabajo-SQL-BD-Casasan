@@ -1,0 +1,49 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ordenar_trabajadores`(IN campo varchar(255),IN orden varchar(255))
+BEGIN
+-- Todas estas variables no me funcionaron para ordenar por campo
+DECLARE columna varchar(255);
+SELECT @columna := campo;
+SELECT CONCAT(campo);
+SELECT CONCAT(columna);
+-- DEFINO un IF que ordenará si cuando llamé al procedimiento le puse ASC o DESC. El parametro es campo pero no funciona
+IF orden = 'asc' OR orden = 'ascendente' THEN
+	SELECT * FROM trabajadores ORDER BY campo ASC;
+ELSE
+    IF orden = 'desc' OR orden = 'descendente' THEN
+		SELECT * FROM trabajadores ORDER BY campo DESC;
+	ELSE 
+		SELECT CONCAT('No se reconoce el orden');
+	END IF; 
+    
+END IF;
+END
+
+
+
+
+
+
+
+
+
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `agregar_o_eliminar`(IN tipo INT,IN miembro INT,IN id_actividad INT)
+BEGIN
+DECLARE ULTIMO int;
+
+IF tipo = 1 THEN
+	-- Caso que el usuario ingrese 1 se inscribe con los datos que se cargaron como parametros
+	INSERT INTO inscripciones(id_miembro,id_actividad,fecha_inscripcion) VALUES(miembro,id_actividad,curdate());
+    SELECT * FROM inscripciones;
+ELSE
+	IF tipo = 2 THEN
+		-- Caso que se ingrese 2 se elimina las inscripciones del miembro
+		DELETE FROM dbcasasan.inscripciones WHERE id_miembro = miembro;
+        SELECT * FROM inscripciones;
+	ELSE
+		-- Caso que el usuario no ingrese 1 o 2 no hace nada
+        SELECT CONCAT('No se reconoce el orden');
+	END IF;
+END IF;
+END
