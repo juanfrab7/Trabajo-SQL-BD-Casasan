@@ -69,3 +69,24 @@ ELSE
     
 END IF;
 END
+
+-- ORDENAMIENTO DE TABLAS VARIANTE 2
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ordenarTabla`(
+  IN nombre_tabla VARCHAR(255),
+  IN campo_ordenamiento VARCHAR(255),
+  IN orden VARCHAR(10)
+)
+BEGIN
+DECLARE sql_query VARCHAR(1000);
+
+IF campo_ordenamiento IS NOT NULL AND orden IS NOT NULL THEN
+	SET @sql_query = CONCAT('SELECT * FROM ', nombre_tabla, ' ORDER BY ', campo_ordenamiento, ' ', orden);
+ELSE
+    SET @sql_query = CONCAT('SELECT * FROM ', nombre_tabla);
+END IF;
+PREPARE stmt FROM @sql_query;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+END
+
