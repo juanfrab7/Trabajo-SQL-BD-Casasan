@@ -8,9 +8,10 @@ CREATE TABLE `trabajadores` (
   `correo` varchar(255),
   `direccion` varchar(255),
   `funcion` varchar(255),
+  `id_actividad` int,
   `nacimiento` date,
   `sueldo` int,
-  `cbu` int
+  `cbu` float
 );
 
 CREATE TABLE `consejo_directivo` (
@@ -31,7 +32,7 @@ CREATE TABLE `consejo_directivo` (
 
 CREATE TABLE `cuentas_bancarias` (
   `id_cuenta` int PRIMARY KEY not null auto_increment,
-  `banco` varchar(30),
+  `banco` varchar(255),
   `sucursal` varchar(255),
   `numero_cuenta` int,
   `tipo` varchar(55),
@@ -65,8 +66,7 @@ CREATE TABLE `miembros` (
   `nombre` varchar(255) not null,
   `apellido` varchar(255) not null,
   `correo` varchar(255),
-  `telefono` int,
-  `barrio` varchar(30),
+  `telefono` float,
   `nacimiento` date,
   `centro_jubilados` boolean
 );
@@ -76,7 +76,7 @@ CREATE TABLE `actividades` (
   `nombre_actividad` varchar(255) not null,
   `id_sede` int,
   `id_trabajador` int,
-  `día_actividad` varchar(30),
+  `día_actividad` varchar(255),
   `horario_actividad` time,
   `capacidad_taller` int
 );
@@ -114,6 +114,6 @@ ADD CONSTRAINT FK_sede
 FOREIGN KEY (id_sede) REFERENCES sedes(id_sede);
 
 
-ALTER TABLE actividades
+ALTER TABLE trabajadores
 ADD CONSTRAINT FK_trabajador_actividades
-FOREIGN KEY (id_trabajador) REFERENCES trabajadores(id_trabajador);
+FOREIGN KEY (id_actividad) REFERENCES actividades(id_actividad);
