@@ -1,0 +1,17 @@
+USE mysql;
+USE sys;
+-- Creo el primer usuario que tendrá permisos de lectura de datos
+CREATE USER 'usuario1@localhost' IDENTIFIED BY '1234';
+-- Le otorgo permisos de visualización
+GRANT SELECT ON *.* TO 'usuario1@localhost';
+SHOW GRANTS FOR 'usuario1@localhost';
+
+USE mysql;
+USE sys;
+-- Creo el segundo usuario que tendrá permisos de lectura, inserción y modificación de datos
+CREATE USER 'usuario2@localhost' IDENTIFIED BY 'abcd';
+
+-- Le otorgo permisos de visualización, inserción y modificación de datos
+GRANT SELECT, INSERT, ALTER ON *.* TO 'usuario2@localhost';
+
+SHOW GRANTS FOR 'usuario2@localhost';
