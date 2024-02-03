@@ -1,0 +1,47 @@
+START TRANSACTION;
+USE dbcasasan;
+SET FOREIGN_KEY_CHECKS=0;
+DELETE FROM trabajadores WHERE id_trabajador = 4;
+DELETE FROM trabajadores WHERE id_trabajador = 6;
+DELETE FROM trabajadores WHERE id_trabajador = 12;
+
+-- 	ROLLBACK;
+
+COMMIT;
+-- Los registros de los trabajadores eliminados son:
+-- INSERT INTO trabajadores(nombre,apellido,telefono,correo,direccion,funcion,id_actividad,nacimiento,sueldo,cbu) 
+-- VALUES('Martín','Pignatelli',1177409723,'martin.pignatelli@gmail.com','Avenida San Juan 4114','Profesor',5,'1988-11-04',85000,3000009301),
+-- ('Romina','Vitrelli',1156912587,'r_vitrelli@outlook.com','Chile 230','Profesor',2,'1994-07-19',75000,3000006471),
+-- ('Clara','Rodriguez',1189361971,null,'Avenida Independencia 364','Profesor',21,'1958-12-22',0,null);
+
+
+
+
+
+
+
+
+
+
+
+
+
+START TRANSACTION;
+USE dbcasasan;
+
+INSERT INTO miembros(nombre,apellido,correo,telefono,nacimiento,centro_jubilados)
+VALUES
+('Martín','Valdi','martin_valdi@gmail.com',1167826411,'1987-10-02',False),
+('Ramon','Cabrera',null,1163407901,'1950-03-06',True),
+('Carlos','Campos', 'charly_campos1952@gmail.com',1116954423,'1952-11-19',True),
+('Sabrina','Romano','sabrina.romano@gmail.com',1103989155,'1987-02-13',False);
+SAVEPOINT lote_carga_1;
+INSERT INTO miembros(nombre,apellido,correo,telefono,nacimiento,centro_jubilados)
+VALUES
+('Lucia','Mas','luchi.mas@gmail.com',1144096210,'1989-10-27',False),
+('Antonella','Sperdutti','antonella.sperdutti@gmail.com',1133311649,'1992-05-26',False),
+('Sandra','Velez',null,1165502673,'1966-01-15',True),
+('Ricardo','Santos','ricardosantos1961@outlook.com',1124263480,'1961-11-05',True);
+SAVEPOINT lote_carga_2;
+-- RELEASE SAVEPOINT lote_carga_1
+
