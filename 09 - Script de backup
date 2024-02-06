@@ -1,0 +1,426 @@
+-- Las tablas incluidas en este backup son: trabajadores, consejo_directivo, cuentas_bancarias, flujo_de_caja, sedes, miembros, actividades, inscripciones
+
+-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
+--
+-- Host: localhost    Database: dbcasasan
+-- ------------------------------------------------------
+-- Server version	8.0.35
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Dumping data for table `actividades`
+--
+
+LOCK TABLES `actividades` WRITE;
+/*!40000 ALTER TABLE `actividades` DISABLE KEYS */;
+INSERT INTO `actividades` VALUES (1,'Administracion',3,NULL,'Lunes a Viernes','09:00:00',5),(2,'Danzas arabes',1,NULL,'Martes','18:00:00',20),(3,'Consulta psicológica',1,NULL,'Lunes y Sábado','14:00:00',1),(4,'Tango',1,NULL,'Lunes y Miércoles y Viernes','16:00:00',10),(5,'Kung Fu',1,NULL,'Martes y Jueves','18:00:00',16),(6,'Peluquería',1,NULL,'Lunes a Viernes','15:00:00',100),(7,'Urbano',1,NULL,'Lunes y Miércoles','17:00:00',20),(8,'Folklore',1,NULL,'Miércoles y Viernes','19:00:00',25),(9,'Teatro',1,NULL,' Martes y Jueves ','20:00:00',30),(10,'Alfabetización Digital',2,NULL,'Lunes y Miércoles','18:00:00',20),(11,'Fotografía',2,NULL,'Lunes y Miércoles','18:00:00',10),(12,'Baile adultos',1,NULL,'Martes y Jueves','18:00:00',20),(13,'Manicura y pedicuría',1,NULL,' Miércoles y Viernes','15:00:00',100),(14,'Dibujo',2,NULL,'Martes y Jueves','17:00:00',14),(15,'Murga',1,NULL,'Lunes y Miércoles y Viernes','20:00:00',20),(16,'Apoyo escolar',2,NULL,'Lunes y Miércoles y Viernes','17:00:00',10),(17,'Robotica',2,NULL,'Martes y Jueves','16:00:00',20),(18,'Diseño de páginas web',2,NULL,'Miércoles y Viernes','18:00:00',20),(19,'Freestyle',2,NULL,'Martes y Viernes','17:00:00',30),(20,'Zumba',1,NULL,'Martes y Jueves','19:00:00',30),(21,'Bingo para adultos',1,NULL,'Lunes y Miércoles y viernes','15:00:00',40),(22,'Panaderia',1,NULL,'Martes y Jueves','15:00:00',20);
+/*!40000 ALTER TABLE `actividades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `consejo_directivo`
+--
+
+LOCK TABLES `consejo_directivo` WRITE;
+/*!40000 ALTER TABLE `consejo_directivo` DISABLE KEYS */;
+INSERT INTO `consejo_directivo` VALUES (1,'Mercedes','Frassia',1148961033,'mfrassia@casasan.com','Vieytes 848','Presidenta'),(2,'Ana','Cardozo',1166784019,'acardozo@casasan.com','Pi y Margall 480','Vicepresidenta'),(3,'Carlos','March',1187154093,'cmarch@casasan.com','Vieytes 848','Tesorero'),(4,'Graciela','Novoa',1149701177,'gnovoa@casasan.com','Gualeguay 639','Secretaria'),(5,'Marcela','Fatone',1125941036,'mfatone@casasan.com','Vieytes 848','Directora de desarrollo institucional'),(6,'Mercedes','Ferreria',1156710033,'mferreria@casasan.com','Vieytes 848','Coordinadora de Proyectos');
+/*!40000 ALTER TABLE `consejo_directivo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `cuentas_bancarias`
+--
+
+LOCK TABLES `cuentas_bancarias` WRITE;
+/*!40000 ALTER TABLE `cuentas_bancarias` DISABLE KEYS */;
+INSERT INTO `cuentas_bancarias` VALUES (1,'Santander','Barracas',10640,'cuenta corriente',65000000),(2,'Nación','La Boca',94870330,'cuenta corriente',125020200),(3,'Nación','La Boca',94871471,'caja de ahorro',100000),(4,'Galicia','San Telmo',2594470,'cuenta corriente',5400000),(5,'Frances','Parque Patricios',55891005,'cuenta corriente',12430486);
+/*!40000 ALTER TABLE `cuentas_bancarias` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `flujo_de_caja`
+--
+
+LOCK TABLES `flujo_de_caja` WRITE;
+/*!40000 ALTER TABLE `flujo_de_caja` DISABLE KEYS */;
+INSERT INTO `flujo_de_caja` VALUES (1,3,10,60000,'Contado'),(2,1,6,90000,'Contado'),(3,2,19,70000,'Contado'),(4,4,21,50000,'Transferencia'),(5,5,4,80000,'Contado'),(6,1,7,30000,'Contado'),(7,4,9,70000,'Transferencia'),(8,4,14,90000,'Contado'),(9,1,20,70000,'Contado'),(10,5,3,50000,'Transferencia'),(11,3,9,70000,'Contado'),(12,2,17,80000,'Transferencia'),(13,1,20,80000,'Contado'),(14,4,13,100000,'Transferencia'),(15,1,2,70000,'Contado'),(16,5,8,65000,'Contado'),(17,1,7,80000,'Contado'),(18,2,10,90000,'Transferencia'),(19,3,13,30000,'Contado'),(20,4,12,80000,'Transferencia'),(21,3,10,60000,'Contado');
+/*!40000 ALTER TABLE `flujo_de_caja` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `‘lanzamiento_pago’` AFTER INSERT ON `flujo_de_caja` FOR EACH ROW INSERT INTO ‘bitacora_registros_caja’ (id_pago,monto,hora,usuario) VALUES (new.id_pago,new.monto,current_timestamp(),user()) */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Dumping data for table `inscripciones`
+--
+
+LOCK TABLES `inscripciones` WRITE;
+/*!40000 ALTER TABLE `inscripciones` DISABLE KEYS */;
+INSERT INTO `inscripciones` VALUES (1,1,21,'2024-01-02'),(2,2,21,'2024-01-07'),(3,3,21,'2024-01-06'),(6,8,10,'2024-01-06'),(7,16,5,'2024-01-07'),(8,17,4,'2024-01-07'),(9,10,4,'2024-01-07'),(10,9,3,'2024-01-08'),(11,19,8,'2024-01-08'),(12,8,5,'2024-01-08');
+/*!40000 ALTER TABLE `inscripciones` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `‘baja_inscripto’` BEFORE DELETE ON `inscripciones` FOR EACH ROW INSERT INTO ‘bitacora_bajas_inscripciones’(id_inscripcion,id_actividad,id_miembro,hora,usuario) VALUES(old.id_inscripcion,old.id_actividad,old.id_miembro, current_timestamp(),user()) */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Dumping data for table `miembros`
+--
+
+LOCK TABLES `miembros` WRITE;
+/*!40000 ALTER TABLE `miembros` DISABLE KEYS */;
+INSERT INTO `miembros` VALUES (1,'Raul','Jimenez','raul_jimenez_1970@gmail.com',1158910000,'1970-05-16',1),(2,'Domingo','Ortiz',NULL,1163410000,'1950-03-06',1),(3,'Nestor','Basualdo','nbasualdo1972@gmail.com',1116070000,'1972-09-19',1),(4,'Joaquín','Diez','joaco_diez@gmail.com',1163000000,'1993-05-16',0),(5,'Lucas','Lopez','lucas_lopez_1992@gmail.com',1118850000,'1992-12-17',0),(6,'Antonio','Rodriguez','raul_jimenez_1970@gmail.com',1158910000,'1970-05-16',1),(7,'Lucia','Villagra','lu_villagra@gmail.com',1136950000,'1996-10-10',0),(8,'David','Ortiz','david.ortiz.1991@outlook.com',1158200000,'1991-11-25',0),(9,'Dante','Perdomenico','dante_perdo@gmail.com',1177140000,'2002-01-30',0),(10,'Diego','Romeo','diego.romeo96@gmail.com',1136090000,'1996-09-27',0),(11,'Luciano','Giganti','luciano.giganti@gmail.com',1128940000,'1987-10-11',0),(12,'Azul','Dominguez','azul_dominguez@gmail.com',1193980000,'2001-12-12',0),(13,'Lautaro','Navarro','lauti.navarro@gmail.com',1163900000,'1998-04-27',0),(14,'Roque','Ferrari',NULL,1143410000,'1956-07-07',1),(15,'Jazmin','Dieguez','jaz_dieguez@gmail.com',1166650000,'2005-11-02',0),(16,'Perla','Giacomini','perlagiacomini@gmail.com',1177430000,'1951-06-28',1),(17,'Nicolas','Santana','nico_santana@outlook.com',1124410000,NULL,0),(18,'Rolando','Peña','rolopeña@gmail.com',1188090000,'1961-04-04',1),(19,'Tomas','Rolon','tomi_rolon_97@gmail.com',1165020000,'1997-06-16',0),(20,'Alejandro','Duarte','ale_duarte_1980@gmail.com',1183360000,'1980-05-20',0),(21,'Melisa','Pirelli','meli.pirelli@gmail.com',1163210000,'1996-09-08',0),(22,'Fabian','Diaz',NULL,1163690000,'1969-06-24',0),(23,'Rodolfo','Di Natale','rodolfo_dinatale@gmail.com',1190160000,'1954-07-23',0),(24,'Nelida','Perlaza',NULL,NULL,'1939-10-03',1),(25,'Ramon','Nicoletti','ramon.nicoletti@gmail.com',1180920000,'1955-06-27',1),(26,'Dario','Metilli','dario_metilli@gmail.com',1130340000,'1981-07-24',0),(27,'Enrique','OConnor','quique_oconnor@gmail.com',1166200000,'1958-06-22',0),(28,'German','Balbo','german.balbo@gmail.com',1180360000,'1985-05-26',0),(29,'Franco','Germano','franco.germano88@gmail.com',1108480000,'1988-02-15',0),(30,'Federico','Bersano','fede_bersano@gmail.com',1182250000,'1992-05-07',0),(31,'Luis','Osorio','lus.osorio@gmail.com',1131330000,'1966-06-21',0),(32,'Daniel','Castro','dani.castro73@gmail.com',1195520000,'1973-03-07',0),(33,'Carmen','Gavilan',NULL,1187940000,'1938-12-27',1),(34,'Angel','Serra',NULL,1100650000,'1950-09-26',1),(35,'Javier','Luna','javi_luna85@gmail.com',1194330000,'1985-05-19',0),(36,'Marina','Escobar','maru.escobar@outlook.com',1161200000,'1983-04-19',0),(37,'Camila','Uriarte','cami.uriarte@gmail.com',1160670000,'1991-12-04',0),(38,'Monica','Spagnuolo','monica_spagnuolo@gmail.com',1160310000,'1962-10-06',1),(39,'Javier','Blanco','javi_blanco91@gmail.com',1136770000,'1991-05-30',0),(40,'Diego','Groisman','diego.groisman@gmail.com',1124670000,'1983-07-17',0),(41,'Nehuen','Silva','nehuen.silva97@gmail.com',1182970000,'1997-08-06',0),(42,'Damian','Fuentes','damian_fuentes@gmail.com',1163200000,'1985-09-03',0),(43,'Claudia','Savoia',NULL,1169220000,'1967-11-06',1),(44,'Ruben','Jerez','ruben.jerez@gmail.com',1150520000,'1955-06-23',1),(45,'Nicolas','Ledesma','nico.ledesma89@gmail.com',1112270000,'1987-11-26',0),(46,'Roxana','Galindez','rogalindez1990@outlook.com',1566100000,'1990-11-12',0),(47,'Martín','Valdi','martin_valdi@gmail.com',1167830000,'1987-10-02',0),(48,'Ramon','Cabrera',NULL,1163410000,'1950-03-06',1),(49,'Carlos','Campos','charly_campos1952@gmail.com',1116950000,'1952-11-19',1),(50,'Sabrina','Romano','sabrina.romano@gmail.com',1103990000,'1987-02-13',0),(51,'Lucia','Mas','luchi.mas@gmail.com',1144100000,'1989-10-27',0),(52,'Antonella','Sperdutti','antonella.sperdutti@gmail.com',1133310000,'1992-05-26',0),(53,'Sandra','Velez',NULL,1165500000,'1966-01-15',1),(54,'Ricardo','Santos','ricardosantos1961@outlook.com',1124260000,'1961-11-05',1),(55,'Martín','Valdi','martin_valdi@gmail.com',1167830000,'1987-10-02',0),(56,'Ramon','Cabrera',NULL,1163410000,'1950-03-06',1),(57,'Carlos','Campos','charly_campos1952@gmail.com',1116950000,'1952-11-19',1),(58,'Sabrina','Romano','sabrina.romano@gmail.com',1103990000,'1987-02-13',0),(59,'Lucia','Mas','luchi.mas@gmail.com',1144100000,'1989-10-27',0),(60,'Antonella','Sperdutti','antonella.sperdutti@gmail.com',1133310000,'1992-05-26',0),(61,'Sandra','Velez',NULL,1165500000,'1966-01-15',1),(62,'Ricardo','Santos','ricardosantos1961@outlook.com',1124260000,'1961-11-05',1);
+/*!40000 ALTER TABLE `miembros` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sedes`
+--
+
+LOCK TABLES `sedes` WRITE;
+/*!40000 ALTER TABLE `sedes` DISABLE KEYS */;
+INSERT INTO `sedes` VALUES (1,'Sede Olavarría','Olavarría 815','sede_casasan@casasan.com',1164910133,1162),(2,'Sede Punto Digital Almirante Brown','Avenida Almirante Brown 1351','puntodigital_casasan@casasan.com',1154602388,1159),(3,'Oficina','Avenida Regimiento de Patricios 96','oficina_casasan@casasan.com',1159442197,1265);
+/*!40000 ALTER TABLE `sedes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `trabajadores`
+--
+
+LOCK TABLES `trabajadores` WRITE;
+/*!40000 ALTER TABLE `trabajadores` DISABLE KEYS */;
+INSERT INTO `trabajadores` VALUES (1,'Agustin','Garcia',1101741033,'a.garcia@gmail.com','Avenida Directorio 2230','Profesor',19,'1998-04-16',70000,3000000000),(2,'Amanda','Giacobelli',1187234919,'amanda.giacobelli@gmail.com','Portela 554','Profesor',12,'1971-02-10',90000,3000000000),(3,'Luciana','Gutierrez',1174801620,'lu_gutierrez@outlook.com','Avenida Martín Garcia 416','Profesor',15,'1993-05-23',50000,3000000000),(5,'Agustina','Rivas',1192445970,'agus.rivas@gmail.com','La Rioja 433','Profesor',20,'1992-09-30',60000,3000010000),(7,'Mirtha','Dominguez',1137814690,'mirtadominguez1966@gmail.com',NULL,'Profesor',6,'1966-03-23',50000,3000000000),(8,'Carlos','Gonzalezz',1123256107,'carlosgonzalez_1971@gmail.com','Avenida Almirante Brown 710','Profesor',22,'1971-08-03',60000,3000010000),(9,'Sabrina','Dermian',1126541011,'sabrina.dermian@gmail.com','Adolfo Alsina 416','Profesor',16,'1989-12-03',55000,3000010000),(10,'Daniela','Ortiz',1184631059,'dani_ortiz@gmail.com','Lavalleja 933','Profesor',3,'1986-01-19',100000,3000000000),(11,'Lucrecia','Spinelli',1137901491,'l.spinelli@gmail.com','Ramon Falcon 3160','Profesor',7,'1987-07-30',65000,3000010000),(13,'Jorge','DAntonio',1161983850,'jorge_dantonio_tango@gmail.com','Amenabar 6713','Profesor',4,'1978-03-26',90000,3000010000),(14,'Alejandro','Dimas',1159036471,'ale_dimas@gmail.com','Mexico 1323','Profesor',17,'1989-10-07',90000,3000010000),(15,'Mariel','Fernandez',1182736148,'mariel_fernandez89@gmail.com','Guemes 2594','Profesor',13,'1989-11-27',60000,3000010000),(16,'Martina','Rossi',1195412633,'martina_rossi_93@gmail.com','Laprida 1626','Profesor',14,'1993-01-04',60000,3000000000),(17,'Lucas','Romero',1169612987,'lucas.romero91@gmail.com','Constitución 1497','Profesor',18,'1991-10-08',90000,3000010000),(18,'Vanesa','Ferrari',1169301710,'vane_ferrari@gmail.com','Avenida Jujuy 980','Profesor',9,'1983-10-09',80000,3000000000),(19,'Paula','Rosales',1162807294,'pau_rosales@gmail.com','Catamarca 497','Profesor',11,'1998-04-16',70000,3000000000),(20,'Horacio','Manfredi',1169701740,'horacio.manfredi.folklore@gmail.com','Estados Unidos 6540','Profesor',8,'1958-11-29',80000,3000000000),(21,'Diego','Gianni',1178431790,'diego_gianni@gmail.com','Crisologo Larralde 4890','Profesor',10,'1990-08-25',80000,3000010000),(22,'Tomas','Bertelli',1173491019,'tbertelli@casasan.com','Avenida Corrientes 880','Administrativo',1,'1995-02-03',120000,3000010000),(23,'Lucia','Martinez',1149461719,'lmartinez@casasan.com','Sarmiento 323','Administrativo',1,'1992-06-06',150000,3000000000),(24,'Rodolfo','Rabelli',1149708077,'rrabelli@casasan.com','Avenida Libertador 4660','Contador',1,'1968-10-22',300000,3000010000),(25,'Oscar','Graziano',1189401673,'o.graziano@gmail.com','Avenida Córdoba 3743','Abogado',1,'1977-12-23',400000,3000010000),(26,'Susana','Ortega',1123204718,'s.ortega@gmail.com','Avenida Belgrano 414','Maestranza',1,'1963-01-19',100000,3000010000),(27,'Susana','Ortega',1123204718,'s.ortega@gmail.com','Avenida Belgrano 414','Maestranza',1,'1963-01-19',100000,3000010000),(28,'Roxana','Ramirez',1129187097,'r.ramirez@gmail.com','Avenida Entre Rios 904','Maestranza',1,'1980-04-16',100000,3000010000);
+/*!40000 ALTER TABLE `trabajadores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `‘bitacora_bajas_inscripciones’`
+--
+
+LOCK TABLES `‘bitacora_bajas_inscripciones’` WRITE;
+/*!40000 ALTER TABLE `‘bitacora_bajas_inscripciones’` DISABLE KEYS */;
+INSERT INTO `‘bitacora_bajas_inscripciones’` VALUES (1,4,21,6,'2024-02-06 14:57:28','root@localhost'),(2,5,10,4,'2024-02-06 14:57:28','root@localhost'),(3,13,10,9,'2024-02-06 14:57:28','root@localhost');
+/*!40000 ALTER TABLE `‘bitacora_bajas_inscripciones’` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `‘bitacora_registros_caja’`
+--
+
+LOCK TABLES `‘bitacora_registros_caja’` WRITE;
+/*!40000 ALTER TABLE `‘bitacora_registros_caja’` DISABLE KEYS */;
+INSERT INTO `‘bitacora_registros_caja’` VALUES (1,21,60000,'2024-02-06 14:57:28','root@localhost');
+/*!40000 ALTER TABLE `‘bitacora_registros_caja’` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping events for database 'dbcasasan'
+--
+
+--
+-- Dumping routines for database 'dbcasasan'
+--
+/*!50003 DROP FUNCTION IF EXISTS `cantidad_anotados` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `cantidad_anotados`(actividad INT) RETURNS varchar(255) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+DECLARE anotados INT;
+DECLARE respuesta VARCHAR(255);
+DECLARE nombre VARCHAR(255);
+
+SELECT nombre_actividad INTO nombre FROM actividades  WHERE id_actividad = actividad;
+SELECT COUNT(id_actividad) INTO anotados FROM inscripciones WHERE id_actividad = actividad;
+SET respuesta = CONCAT(
+'La cantidad de anotados del curso numero',actividad,' ',nombre,' es: ',anotados);
+RETURN respuesta;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `pagado_trabajador` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `pagado_trabajador`(id_ingresado INT) RETURNS varchar(255) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+DECLARE apellido_trabajador VARCHAR(255);
+DECLARE pagado_trabajador FLOAT;
+DECLARE resultado VARCHAR(255);
+DECLARE cantidad_pagos INT;
+
+SELECT apellido INTO apellido_trabajador
+FROM trabajadores
+WHERE id_trabajador = id_ingresado;
+
+SELECT SUM(monto) INTO pagado_trabajador
+FROM flujo_de_caja
+WHERE id_trabajador = id_ingresado;
+
+SELECT COUNT(monto) INTO cantidad_pagos
+FROM flujo_de_caja
+WHERE id_trabajador = id_ingresado;
+
+SET resultado = CONCAT(
+'Pagado al trabajador ', apellido_trabajador, ': ',
+'Total de gastos: ', pagado_trabajador, ' // ' ,
+'Cantidad de pagos: ', cantidad_pagos);
+RETURN resultado;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `agregar_o_eliminar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `agregar_o_eliminar`(IN tipo INT,IN miembro INT,IN actividad INT)
+BEGIN
+DECLARE ULTIMO int;
+
+IF tipo = 1 THEN
+	-- Caso que el usuario ingrese 1 se inscribe con los datos que se cargaron como parametros
+	INSERT INTO inscripciones(id_miembro,id_actividad,fecha_inscripcion) VALUES(miembro,actividad,curdate());
+    SELECT * FROM inscripciones;
+ELSE
+	IF tipo = 2 THEN
+		-- Caso que se ingrese 2 se elimina las inscripciones del miembro
+		DELETE FROM dbcasasan.inscripciones WHERE id_miembro = miembro AND id_actividad = actividad;
+        SELECT * FROM inscripciones;
+	ELSE
+		-- Caso que el usuario no ingrese 1 o 2 no hace nada
+        SELECT CONCAT('No se reconoce el orden');
+	END IF;
+END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ordenarTabla` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ordenarTabla`(
+  IN p_nombre_tabla VARCHAR(255),
+  IN p_campo_ordenamiento VARCHAR(255),
+  IN p_orden VARCHAR(10)
+)
+BEGIN
+DECLARE sql_query VARCHAR(1000);
+
+IF p_campo_ordenamiento IS NOT NULL AND p_orden IS NOT NULL THEN
+	SET @sql_query = CONCAT('SELECT * FROM ', p_nombre_tabla, ' ORDER BY ', p_campo_ordenamiento, ' ', p_orden);
+ELSE
+    SET @sql_query = CONCAT('SELECT * FROM ', p_nombre_tabla);
+END IF;
+PREPARE stmt FROM @sql_query;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ordenarTablav2` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ordenarTablav2`(
+  IN nombre_tabla VARCHAR(255),
+  IN campo_ordenamiento VARCHAR(255),
+  IN orden VARCHAR(10)
+)
+BEGIN
+DECLARE sql_query VARCHAR(1000);
+
+IF campo_ordenamiento IS NOT NULL AND orden IS NOT NULL THEN
+	SET @sql_query = CONCAT('SELECT * FROM ', nombre_tabla, ' ORDER BY ', campo_ordenamiento, ' ', orden);
+ELSE
+    SET @sql_query = CONCAT('SELECT * FROM ', nombre_tabla);
+END IF;
+PREPARE stmt FROM @sql_query;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ordenar_trabajadores` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ordenar_trabajadores`(IN campo varchar(255),IN orden varchar(255))
+BEGIN
+-- Todas estas variables no me funcionaron para ordenar por campo
+DECLARE columna varchar(255);
+SELECT @columna := campo;
+SELECT CONCAT(campo);
+SELECT CONCAT(columna);
+-- DEFINO un IF que ordenará si cuando llamé al procedimiento le puse ASC o DESC. El parametro es campo pero no funciona
+IF orden = 'asc' OR orden = 'ascendente' THEN
+	SELECT * FROM trabajadores ORDER BY campo ASC;
+ELSE
+    IF orden = 'desc' OR orden = 'descendente' THEN
+		SELECT * FROM trabajadores ORDER BY campo DESC;
+	ELSE 
+		SELECT CONCAT('No se reconoce el orden');
+	END IF; 
+    
+END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ordenar_trabajadoresv2` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ordenar_trabajadoresv2`(IN campo varchar(255),IN orden varchar(255))
+BEGIN
+-- Todas estas variables no me funcionaron para ordenar por campo
+DECLARE columna varchar(255);
+
+-- DEFINO un IF que ordenará si cuando llamé al procedimiento le puse ASC o DESC. El parametro es campo pero no funciona
+IF orden = 'asc' OR orden = 'ascendente' THEN
+	CASE
+		WHEN campo = 'id_trabajador' THEN SELECT * FROM trabajadores ORDER BY id_trabajador ASC;
+        WHEN campo = 'nombre' THEN SELECT * FROM trabajadores ORDER BY nombre ASC;
+        WHEN campo = 'apellido' THEN SELECT * FROM trabajadores ORDER BY apellido ASC;
+        WHEN campo = 'telefono' THEN SELECT * FROM trabajadores ORDER BY telefono ASC;
+        WHEN campo = 'correo' THEN SELECT * FROM trabajadores ORDER BY correo ASC;
+        WHEN campo = 'direccion' THEN SELECT * FROM trabajadores ORDER BY direccion ASC;
+        WHEN campo = 'funcion' THEN SELECT * FROM trabajadores ORDER BY funcion ASC;
+        WHEN campo = 'id_actividad' THEN SELECT * FROM trabajadores ORDER BY id_actividad ASC;
+        WHEN campo = 'nacimiento' THEN SELECT * FROM trabajadores ORDER BY nacimiento ASC;
+        WHEN campo = 'sueldo' THEN SELECT * FROM trabajadores ORDER BY sueldo ASC;
+        WHEN campo = 'cbu' THEN SELECT * FROM trabajadores ORDER BY cbu ASC;
+        ELSE SELECT CONCAT('No se reconoce el campo (columna de la tabla)');
+	END CASE;
+ELSE
+    IF orden = 'desc' OR orden = 'descendente' THEN
+		CASE
+			WHEN campo = 'id_trabajador' THEN SELECT * FROM trabajadores ORDER BY id_trabajador DESC;
+			WHEN campo = 'nombre' THEN SELECT * FROM trabajadores ORDER BY nombre DESC;
+			WHEN campo = 'apellido' THEN SELECT * FROM trabajadores ORDER BY apellido DESC;
+			WHEN campo = 'telefono' THEN SELECT * FROM trabajadores ORDER BY telefono DESC;
+			WHEN campo = 'correo' THEN SELECT * FROM trabajadores ORDER BY correo DESC;
+			WHEN campo = 'direccion' THEN SELECT * FROM trabajadores ORDER BY direccion DESC;
+			WHEN campo = 'funcion' THEN SELECT * FROM trabajadores ORDER BY funcion DESC;
+			WHEN campo = 'id_actividad' THEN SELECT * FROM trabajadores ORDER BY id_actividad DESC;
+			WHEN campo = 'nacimiento' THEN SELECT * FROM trabajadores ORDER BY nacimiento DESC;
+			WHEN campo = 'sueldo' THEN SELECT * FROM trabajadores ORDER BY sueldo DESC;
+			WHEN campo = 'cbu' THEN SELECT * FROM trabajadores ORDER BY cbu DESC;
+			ELSE SELECT CONCAT('No se reconoce el campo (columna de la tabla)');
+		END CASE;
+	ELSE 
+		SELECT CONCAT('No se reconoce el orden');
+	END IF; 
+    
+END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-02-06 12:00:16
