@@ -7,7 +7,9 @@ Por lo que CasaSan es una fundación completamente vinculada al barrio que compa
 
 Objetivo de la Base de Datos
 ●	Debido a la gran cantidad de miembros que asisten a la fundación tener los registros de estos para hacer campañas de difusión o ponerse en contacto con ellos.
+
 ●	Tener un registro de los asistentes a los talleres, servicios y centro de jubilados.
+
 ●	Tener registro de todos los pagos que realiza la fundación a las personas que prestan servicio a la misma
 
 
