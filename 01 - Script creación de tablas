@@ -1,6 +1,8 @@
--- Script de creación de base de datos y 
+-- CREACIÓN BD Y ENTIDADES
+-- Script de creación de base de datos
 CREATE DATABASE dbcasasan;
 USE dbcasasan;
+-- Creación tabla trabajadores. Esta tabla contiene toda la información de los trabajadores que se desempeñan en la fundación.
 CREATE TABLE `trabajadores` (
   `id_trabajador` int PRIMARY KEY not null auto_increment,
   `nombre` varchar(255) not null,
@@ -9,12 +11,12 @@ CREATE TABLE `trabajadores` (
   `correo` varchar(255),
   `direccion` varchar(255),
   `funcion` varchar(255),
-  `id_actividad` int,
   `nacimiento` date,
   `sueldo` int,
   `cbu` float
 );
 
+-- Creación tabla consejo directivo. Esta tabla contiene toda la información de los directivos de la fundación.
 CREATE TABLE `consejo_directivo` (
   `id_directivo` int PRIMARY KEY not null auto_increment,
   `nombre` varchar(255),
@@ -24,28 +26,27 @@ CREATE TABLE `consejo_directivo` (
   `direccion` varchar(255),
   `funcion` varchar(255)
 );
-
-
-
-
-
+-- Creación tabla cuentas bancarias. Esta tabla contiene toda la información de las cuentas bancarias que utiliza la fundación.
 CREATE TABLE `cuentas_bancarias` (
   `id_cuenta` int PRIMARY KEY not null auto_increment,
   `banco` varchar(255),
   `sucursal` varchar(255),
   `numero_cuenta` int,
   `tipo` varchar(55),
-  `saldo` int
+  `saldo` float
 );
 
+--- Creación tabla flujo de caja. Esta tabla muestra todos los movimientos que tienen las cuentas bancarias de la fundación.
 CREATE TABLE `flujo_de_caja` (
   `id_pago` int PRIMARY KEY not null auto_increment,
   `id_cuenta` int,
   `id_trabajador` int,
   `monto` int,
-  `tipo` varchar(45)
+  `tipo` varchar(45),
+  `fecha_pago` datetime 
 );
 
+--- Creación tabla sedes. Esta tabla contiene toda la información de las sedes de la fundación.
 CREATE TABLE `sedes` (
   `id_sede` int PRIMARY KEY not null auto_increment,
   `nombre_sede` varchar(255),
@@ -56,10 +57,7 @@ CREATE TABLE `sedes` (
 );
 
 
-
-
-
-
+-- Creación tabla miembros. Esta tabla contiene toda la información de los miembros que concurren a la fundación.
 CREATE TABLE `miembros` (
   `id_miembro` int PRIMARY KEY not null auto_increment,
   `nombre` varchar(255) not null,
@@ -70,16 +68,37 @@ CREATE TABLE `miembros` (
   `centro_jubilados` boolean
 );
 
+-- Creación tabla actividades. Esta tabla contiene toda la información de las actividades que se realizan en la fundación.
 CREATE TABLE `actividades` (
   `id_actividad` int PRIMARY KEY not null auto_increment,
   `nombre_actividad` varchar(255) not null,
   `id_sede` int,
   `id_trabajador` int,
-  `día_actividad` varchar(255),
-  `horario_actividad` time,
-  `capacidad_taller` int
+  `dia_actividad` varchar(255),
+  `horario_comienzo_actividad` time,
+  `horario_fin_actividad` time,
+  `capacidad_actividad` int,
+  `inscriptos_actividad` int
 );
 
+
+
+
+
+
+-- Creación tabla tareas administrativas. Esta tabla contiene toda la información de las actividades administrativas que se realizan en la fundación.
+CREATE TABLE `tareas_administrativas` (
+  `id_tarea_administrativa` int PRIMARY KEY not null auto_increment,
+  `nombre_tarea_administrativa` varchar(255) not null,
+  `id_sede` int,
+  `id_trabajador` int,
+  `dia_tarea` varchar(255),
+  `horario_comienzo_tarea` time,
+  `horario_fin_tarea` time
+);
+
+
+-- Creación tabla inscripciones. Esta tabla los datos de las inscripciones en las actividades
 CREATE TABLE `inscripciones` (
   `id_inscripcion` int PRIMARY KEY not null auto_increment,
   `id_miembro` int,
@@ -87,9 +106,18 @@ CREATE TABLE `inscripciones` (
   `fecha_inscripcion` date
 );
 
+CREATE TABLE `donaciones` (
+  `id_donacion` int PRIMARY KEY not null auto_increment,
+  `id_cuenta` int,
+  `donante` VARCHAR(255), 
+  `monto` int
+);
 
 
 
+
+
+-- Script de establecimiento de claves foraneas
 -- En la tabla inscripciones se indica que el campo id_miembro es una clave foránea de la tabla miembros 
 ALTER TABLE inscripciones
 ADD CONSTRAINT FK_miembro
@@ -100,10 +128,12 @@ ALTER TABLE inscripciones
 ADD CONSTRAINT FK_actividad
 FOREIGN KEY (id_actividad) REFERENCES actividades(id_actividad) ON DELETE CASCADE;
 
+-- En la tabla inscripciones se indica que el campo id_cuenta es una clave foránea de la tabla cuentas_bancarias
 ALTER TABLE flujo_de_caja
 ADD CONSTRAINT FK_cuenta
 FOREIGN KEY (id_cuenta) REFERENCES cuentas_bancarias(id_cuenta);
 
+-- En la tabla inscripciones se indica que el campo id_actividad es una clave foránea de la tabla actividades
 ALTER TABLE flujo_de_caja
 ADD CONSTRAINT FK_trabajador
 FOREIGN KEY (id_trabajador) REFERENCES trabajadores(id_trabajador);
@@ -113,218 +143,24 @@ ALTER TABLE actividades
 ADD CONSTRAINT FK_sede
 FOREIGN KEY (id_sede) REFERENCES sedes(id_sede);
 
+
+
 -- En la tabla actividades se indica que el campo id_trabajador es una clave foránea de la tabla trabajadores
 ALTER TABLE actividades
 ADD CONSTRAINT FK_trabajador_actividades
 FOREIGN KEY (id_trabajador) REFERENCES trabajadores(id_trabajador) ON DELETE SET NULL;
 
+-- En la tabla actividades se indica que el campo id_trabajador es una clave foránea de la tabla trabajadores
+ALTER TABLE tareas_administrativas
+ADD CONSTRAINT FK_trabajador_tarea
+FOREIGN KEY (id_trabajador) REFERENCES trabajadores(id_trabajador) ON DELETE SET NULL;
 
--- Script de inserción de datos
-USE dbcasasan;
-SET FOREIGN_KEY_CHECKS=0;
+-- En la tabla actividades se indica que el campo id_sede es una clave foránea de la tabla sedes
+ALTER TABLE tareas_administrativas
+ADD CONSTRAINT FK_sede_tarea
+FOREIGN KEY (id_sede) REFERENCES sedes(id_sede);
 
-INSERT INTO consejo_directivo(nombre,apellido,telefono,correo,direccion,funcion)
-VALUES
-('Mercedes','Frassia',1148961033,'mfrassia@casasan.com','Vieytes 848','Presidenta'),
-('Ana','Cardozo',1166784019,'acardozo@casasan.com','Pi y Margall 480','Vicepresidenta'),
-('Carlos','March',1187154093,'cmarch@casasan.com','Vieytes 848','Tesorero'),
-('Graciela','Novoa',1149701177,'gnovoa@casasan.com','Gualeguay 639','Secretaria'),
-('Marcela','Fatone',1125941036,'mfatone@casasan.com','Vieytes 848','Directora de desarrollo institucional'),
-('Mercedes','Ferreria',1156710033,'mferreria@casasan.com','Vieytes 848','Coordinadora de Proyectos');
-
-INSERT INTO cuentas_bancarias(banco,sucursal,numero_cuenta,tipo,saldo)
-VALUES
-('Santander', 'Barracas',10640, 'cuenta corriente',65000000),
-('Nación', 'La Boca',94870330, 'cuenta corriente',125020200),
-('Nación', 'La Boca',94871471, 'caja de ahorro',100000),
-('Galicia', 'San Telmo',2594470, 'cuenta corriente',5400000),
-('Frances', 'Parque Patricios',55891005, 'cuenta corriente',12430486);
-
-INSERT INTO sedes(nombre_sede,direccion_sede,correo_sede,telefono_sede,codigo_postal)
-VALUES
-('Sede Olavarría', 'Olavarría 815', 'sede_casasan@casasan.com', 1164910133,1162),
-('Sede Punto Digital Almirante Brown', 'Avenida Almirante Brown 1351', 'puntodigital_casasan@casasan.com', 1154602388,1159),
-('Oficina', 'Avenida Regimiento de Patricios 96', 'oficina_casasan@casasan.com', 1159442197,1265);
-
-
-
-
-
-INSERT INTO actividades(nombre_actividad,id_sede,día_actividad,horario_actividad,capacidad_taller)
-VALUES
-('Administracion', 3, 'Lunes a Viernes', '09:00:00',5),
-('Danzas arabes', 1, 'Martes', '18:00:00',20),
-('Consulta psicológica', 1, 'Lunes y Sábado', '14:00:00',1),
-('Tango', 1,'Lunes y Miércoles y Viernes', '16:00:00',10),
-('Kung Fu', 1,'Martes y Jueves', '18:00:00',16),
-('Peluquería', 1,'Lunes a Viernes', '15:00:00',100),
-('Urbano', 1,'Lunes y Miércoles', '17:00:00',20),
-('Folklore', 1,'Miércoles y Viernes', '19:00:00',25),
-('Teatro', 1,' Martes y Jueves ', '20:00:00',30),
-('Alfabetización Digital', 2, 'Lunes y Miércoles', '18:00:00',20),
-('Fotografía', 2, 'Lunes y Miércoles', '18:00:00',10),
-('Baile adultos', 1, 'Martes y Jueves', '18:00:00',20),
-('Manicura y pedicuría', 1,' Miércoles y Viernes', '15:00:00',100),
-('Dibujo', 2, 'Martes y Jueves', '17:00:00',14),
-('Murga', 1,'Lunes y Miércoles y Viernes', '20:00:00',20),
-('Apoyo escolar', 2, 'Lunes y Miércoles y Viernes', '17:00:00',10),
-('Robotica', 2, 'Martes y Jueves', '16:00:00',20),
-('Diseño de páginas web', 2, 'Miércoles y Viernes', '18:00:00',20),
-('Freestyle', 2, 'Martes y Viernes', '17:00:00',30),
-('Zumba', 1, 'Martes y Jueves', '19:00:00',30),
-('Bingo para adultos', 1, 'Lunes y Miércoles y viernes', '15:00:00',40),
-('Panaderia', 1, 'Martes y Jueves', '15:00:00',20);
-
-
-
--- Inserción de datos tabla trabajadores
-INSERT INTO trabajadores(nombre,apellido,telefono,correo,direccion,funcion,id_actividad,nacimiento,sueldo,cbu)
-VALUES
-('Agustin','Garcia',1101741033,'a.garcia@gmail.com','Avenida Directorio 2230','Profesor',19,'1998-04-16',70000,3000001616),
-('Amanda','Giacobelli',1187234919,'amanda.giacobelli@gmail.com','Portela 554','Profesor',12,'1971-02-10',90000,3000001491),
-('Luciana','Gutierrez',1174801620,'lu_gutierrez@outlook.com','Avenida Martín Garcia 416','Profesor',15,'1993-05-23',50000,3000004120),
-('Martín','Pignatelli',1177409723,'martin.pignatelli@gmail.com','Avenida San Juan 4114','Profesor',5,'1988-11-04',85000,3000009301),
-('Agustina','Rivas',1192445970,'agus.rivas@gmail.com','La Rioja 433','Profesor',20,'1992-09-30',60000,3000009780),
-('Romina','Vitrelli',1156912587,'r_vitrelli@outlook.com','Chile 230','Profesor',2,'1994-07-19',75000,3000006471),
-('Mirtha','Dominguez',1137814690,'mirtadominguez1966@gmail.com',null,'Profesor',6,'1966-03-23',50000,3000002549),
-('Carlos','Gonzalezz',1123256107,'carlosgonzalez_1971@gmail.com','Avenida Almirante Brown 710','Profesor',22,'1971-08-03',60000,3000005410),
-('Sabrina','Dermian',1126541011,'sabrina.dermian@gmail.com','Adolfo Alsina 416','Profesor',16,'1989-12-03',55000,3000009431),
-('Daniela','Ortiz',1184631059,'dani_ortiz@gmail.com','Lavalleja 933','Profesor',3,'1986-01-19',100000,3000002888),
-('Lucrecia','Spinelli',1137901491,'l.spinelli@gmail.com','Ramon Falcon 3160','Profesor',7,'1987-07-30',65000,3000006908),
-('Clara','Rodriguez',1189361971,null,'Avenida Independencia 364','Profesor',21,'1958-12-22',0,null),
-('Jorge','DAntonio',1161983850,'jorge_dantonio_tango@gmail.com','Amenabar 6713','Profesor',4,'1978-03-26',90000,3000009117),
-('Alejandro','Dimas',1159036471,'ale_dimas@gmail.com','Mexico 1323','Profesor',17,'1989-10-07',90000,3000006170),
-('Mariel','Fernandez',1182736148,'mariel_fernandez89@gmail.com','Guemes 2594','Profesor',13,'1989-11-27',60000,3000006473),
-('Martina','Rossi',1195412633,'martina_rossi_93@gmail.com','Laprida 1626','Profesor',14,'1993-01-04',60000,3000002510),
-('Lucas','Romero',1169612987,'lucas.romero91@gmail.com','Constitución 1497','Profesor',18,'1991-10-08',90000,3000005517),
-('Vanesa','Ferrari',1169301710,'vane_ferrari@gmail.com','Avenida Jujuy 980','Profesor',9,'1983-10-09',80000,3000003790),
-('Paula','Rosales',1162807294,'pau_rosales@gmail.com','Catamarca 497','Profesor',11,'1998-04-16',70000,3000002490),
-('Horacio','Manfredi',1169701740,'horacio.manfredi.folklore@gmail.com','Estados Unidos 6540','Profesor',8,'1958-11-29',80000,3000004766),
-('Diego','Gianni',1178431790,'diego_gianni@gmail.com','Crisologo Larralde 4890','Profesor',10,'1990-08-25',80000,3000009676),
-('Tomas','Bertelli',1173491019,'tbertelli@casasan.com','Avenida Corrientes 880','Administrativo',1,'1995-02-03',120000,3000009694),
-('Lucia','Martinez',1149461719,'lmartinez@casasan.com','Sarmiento 323','Administrativo',1,'1992-06-06',150000,3000002426),
-('Rodolfo','Rabelli',1149708077,'rrabelli@casasan.com','Avenida Libertador 4660','Contador',1,'1968-10-22',300000,3000007137),
-('Oscar','Graziano',1189401673,'o.graziano@gmail.com','Avenida Córdoba 3743','Abogado',1,'1977-12-23',400000,3000006466),
-('Susana','Ortega',1123204718,'s.ortega@gmail.com','Avenida Belgrano 414','Maestranza',1,'1963-01-19',100000,3000008810),
-('Susana','Ortega',1123204718,'s.ortega@gmail.com','Avenida Belgrano 414','Maestranza',1,'1963-01-19',100000,3000008810),
-('Roxana','Ramirez',1129187097,'r.ramirez@gmail.com','Avenida Entre Rios 904','Maestranza',1,'1980-04-16',100000,3000006351);
-
-
-
-
-
-
-
-
-
-
-
--- Inserción datos tabla flujo de caja
-INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo)
-VALUES
-(3,10,60000,'Contado'),
-(1,6,90000,'Contado'),
-(2,19,70000,'Contado'),
-(4,21,50000,'Transferencia'),
-(5,4,80000,'Contado'),
-(1,7,30000,'Contado'),
-(4,9,70000,'Transferencia'),
-(4,14,90000,'Contado'),
-(1,20,70000,'Contado'),
-(5,3,50000,'Transferencia'),
-(3,9,70000,'Contado'),
-(2,17,80000,'Transferencia'),
-(1,20,80000,'Contado'),
-(4,13,100000,'Transferencia'),
-(1,2,70000,'Contado'),
-(5,8,65000,'Contado'),
-(1,7,80000,'Contado'),
-(2,10,90000,'Transferencia'),
-(3,13,30000,'Contado'),
-(4,12,80000,'Transferencia');
-
-
-
-
-
-
-
-
-
-INSERT INTO miembros(nombre,apellido,correo,telefono,nacimiento,centro_jubilados)
-VALUES
-('Raul','Jimenez','raul_jimenez_1970@gmail.com',1158913647,'1970-05-16',True),
-('Domingo','Ortiz',null,1163407901,'1950-03-06',True),
-('Nestor','Basualdo', 'nbasualdo1972@gmail.com',1116069071,'1972-09-19',True),
-('Joaquín','Diez','joaco_diez@gmail.com',1163001580,'1993-05-16',False),
-('Lucas','Lopez','lucas_lopez_1992@gmail.com',1118852033,'1992-12-17',False),
-('Antonio','Rodriguez','raul_jimenez_1970@gmail.com',1158913647,'1970-05-16',True),
-('Lucia','Villagra','lu_villagra@gmail.com',1136947022,'1996-10-10',False),
-('David','Ortiz','david.ortiz.1991@outlook.com',1158203796,'1991-11-25',False),
-('Dante','Perdomenico','dante_perdo@gmail.com',1177139583,'2002-01-30',False),
-('Diego','Romeo','diego.romeo96@gmail.com',1136091719,'1996-09-27',False),
-('Luciano','Giganti','luciano.giganti@gmail.com',1128935567,'1987-10-11',False),
-('Azul','Dominguez','azul_dominguez@gmail.com',1193984514,'2001-12-12',False),
-('Lautaro','Navarro','lauti.navarro@gmail.com',1163904710,'1998-04-27',False),
-('Roque','Ferrari',null,1143408288,'1956-07-07',True),
-('Jazmin','Dieguez','jaz_dieguez@gmail.com',1166652329,'2005-11-02',False),
-('Perla','Giacomini','perlagiacomini@gmail.com',1177433016,'1951-06-28',True),
-('Nicolas','Santana','nico_santana@outlook.com',1124406600,null,False),
-('Rolando','Peña','rolopeña@gmail.com',1188091013,'1961-04-04',True),
-('Tomas','Rolon','tomi_rolon_97@gmail.com',1165018032,'1997-06-16',False),
-('Alejandro','Duarte','ale_duarte_1980@gmail.com',1183364941,'1980-05-20',False),
-('Melisa','Pirelli','meli.pirelli@gmail.com',1163209466,'1996-09-08',False),
-('Fabian','Diaz',null,1163689091,'1969-06-24',False),
-('Rodolfo','Di Natale','rodolfo_dinatale@gmail.com',1190164510,'1954-07-23',False),
-('Nelida','Perlaza',null,null,'1939-10-03',True),
-('Ramon','Nicoletti','ramon.nicoletti@gmail.com',1180919350,'1955-06-27',True),
-('Dario','Metilli','dario_metilli@gmail.com',1130335870,'1981-07-24',False),
-('Enrique','OConnor','quique_oconnor@gmail.com',1166201417,'1958-06-22',False),
-('German','Balbo','german.balbo@gmail.com',1180364940,'1985-05-26',False),
-('Franco','Germano','franco.germano88@gmail.com',1108475136,'1988-02-15',False),
-('Federico','Bersano','fede_bersano@gmail.com',1182254310,'1992-05-07',False),
-('Luis','Osorio','lus.osorio@gmail.com',1131334090,'1966-06-21',False),
-('Daniel','Castro','dani.castro73@gmail.com',1195524733,'1973-03-07',False),
-('Carmen','Gavilan',null,1187936023,'1938-12-27',True),
-('Angel','Serra',null,1100654398,'1950-09-26',True),
-('Javier','Luna','javi_luna85@gmail.com',1194325724,'1985-05-19',False),
-('Marina','Escobar','maru.escobar@outlook.com',1161201912,'1983-04-19',False),
-('Camila','Uriarte','cami.uriarte@gmail.com',1160665980,'1991-12-04',False),
-('Monica','Spagnuolo','monica_spagnuolo@gmail.com',1160309941,'1962-10-06',True),
-('Javier','Blanco','javi_blanco91@gmail.com',1136769759,'1991-05-30',False),
-('Diego','Groisman','diego.groisman@gmail.com',1124669078,'1983-07-17',False), ('Nehuen','Silva','nehuen.silva97@gmail.com',1182974301,'1997-08-06',False),
-('Damian','Fuentes','damian_fuentes@gmail.com',1163204755,'1985-09-03',False), ('Claudia','Savoia',null,1169221694,'1967-11-06',True),
-('Roxana','Galindez','rogalindez1990@outlook.com',1566101911,'1990-11-12',False);
-
-
-INSERT INTO inscripciones(id_miembro,id_actividad,fecha_inscripcion)
-VALUES
-(1, 21, '2024-01-02'),
-(2, 21, '2024-01-07'),
-(3, 21, '2024-01-06'),
-(6, 21, '2024-01-02'),
-(4, 10, '2024-01-03'),
-(8, 10, '2024-01-06'),
-(9, 10, '2024-01-04'); 
-CREATE VIEW administrativos AS
-SELECT id_trabajador, nombre, apellido FROM dbcasasan.trabajadores
-WHERE funcion LIKE 'Administrativo'
-ORDER BY (apellido) ASC;
-
-CREATE VIEW actividades_olavarria AS
-SELECT nombre_actividad, horario_actividad,capacidad_talleractividades_olavarria FROM actividades
-WHERE id_sede LIKE '1';
-
-CREATE VIEW pagos_sobre_promedio AS
-SELECT id_pago, id_trabajador, monto FROM flujo_de_caja
-WHERE monto > (SELECT AVG(monto)FROM flujo_de_caja);
-
-CREATE VIEW miembros_menores AS
-SELECT id_miembro, nombre, apellido, nacimiento
-FROM miembros
-WHERE nacimiento > '2000-01-01'
-ORDER BY(apellido);
-
-CREATE VIEW total_pagado_colaborador_21 AS 
-SELECT SUM(monto) FROM flujo_de_caja
-WHERE id_trabajador = '21';
+-- En la tabla donaciones se indican que el campo cuenta es clave foránea de la tabla cuentas_bancarias
+ALTER TABLE donaciones
+ADD CONSTRAINT FK_cuenta_donacion
+FOREIGN KEY (id_cuenta) REFERENCES cuentas_bancarias(id_cuenta);
