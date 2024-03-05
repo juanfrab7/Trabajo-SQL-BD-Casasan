@@ -1,6 +1,8 @@
+-- Script de inserción de datos
 USE dbcasasan;
-SET FOREIGN_KEY_CHECKS=0;
+-- SET FOREIGN_KEY_CHECKS=0;
 
+-- Inserción de datos de la tabla consejo_directivo
 INSERT INTO consejo_directivo(nombre,apellido,telefono,correo,direccion,funcion)
 VALUES
 ('Mercedes','Frassia',1148961033,'mfrassia@casasan.com','Vieytes 848','Presidenta'),
@@ -10,6 +12,7 @@ VALUES
 ('Marcela','Fatone',1125941036,'mfatone@casasan.com','Vieytes 848','Directora de desarrollo institucional'),
 ('Mercedes','Ferreria',1156710033,'mferreria@casasan.com','Vieytes 848','Coordinadora de Proyectos');
 
+-- Inserción de datos de la tabla cuentas_bancarias
 INSERT INTO cuentas_bancarias(banco,sucursal,numero_cuenta,tipo,saldo)
 VALUES
 ('Santander', 'Barracas',10640, 'cuenta corriente',65000000),
@@ -18,110 +21,89 @@ VALUES
 ('Galicia', 'San Telmo',2594470, 'cuenta corriente',5400000),
 ('Frances', 'Parque Patricios',55891005, 'cuenta corriente',12430486);
 
+-- Inserción de datos de la tabla sedes
 INSERT INTO sedes(nombre_sede,direccion_sede,correo_sede,telefono_sede,codigo_postal)
 VALUES
 ('Sede Olavarría', 'Olavarría 815', 'sede_casasan@casasan.com', 1164910133,1162),
 ('Sede Punto Digital Almirante Brown', 'Avenida Almirante Brown 1351', 'puntodigital_casasan@casasan.com', 1154602388,1159),
 ('Oficina', 'Avenida Regimiento de Patricios 96', 'oficina_casasan@casasan.com', 1159442197,1265);
-
-
-
-
-
-INSERT INTO actividades(nombre_actividad,id_sede,día_actividad,horario_actividad,capacidad_taller)
+-- Inserción de datos tabla trabajadores
+INSERT INTO trabajadores(nombre,apellido,telefono,correo,direccion,funcion,nacimiento,sueldo,cbu)
 VALUES
-('Administracion', 3, 'Lunes a Viernes', '09:00:00',5),
-('Danzas arabes', 1, 'Martes', '18:00:00',20),
-('Consulta psicológica', 1, 'Lunes y Sábado', '14:00:00',1),
-('Tango', 1,'Lunes y Miércoles y Viernes', '16:00:00',10),
-('Kung Fu', 1,'Martes y Jueves', '18:00:00',16),
-('Peluquería', 1,'Lunes a Viernes', '15:00:00',100),
-('Urbano', 1,'Lunes y Miércoles', '17:00:00',20),
-('Folklore', 1,'Miércoles y Viernes', '19:00:00',25),
-('Teatro', 1,' Martes y Jueves ', '20:00:00',30),
-('Alfabetización Digital', 2, 'Lunes y Miércoles', '18:00:00',20),
-('Fotografía', 2, 'Lunes y Miércoles', '18:00:00',10),
-('Baile adultos', 1, 'Martes y Jueves', '18:00:00',20),
-('Manicura y pedicuría', 1,' Miércoles y Viernes', '15:00:00',100),
-('Dibujo', 2, 'Martes y Jueves', '17:00:00',14),
-('Murga', 1,'Lunes y Miércoles y Viernes', '20:00:00',20),
-('Apoyo escolar', 2, 'Lunes y Miércoles y Viernes', '17:00:00',10),
-('Robotica', 2, 'Martes y Jueves', '16:00:00',20),
-('Diseño de páginas web', 2, 'Miércoles y Viernes', '18:00:00',20),
-('Freestyle', 2, 'Martes y Viernes', '17:00:00',30),
-('Zumba', 1, 'Martes y Jueves', '19:00:00',30),
-('Bingo para adultos', 1, 'Lunes y Miércoles y viernes', '15:00:00',40),
-('Panaderia', 1, 'Martes y Jueves', '15:00:00',20);
+('Agustin','Garcia',1101741033,'a.garcia@gmail.com','Avenida Directorio 2230','Profesor','1998-04-16',70000,3000001616),
+('Amanda','Giacobelli',1187234919,'amanda.giacobelli@gmail.com','Portela 554','Profesor','1971-02-10',90000,3000001491),
+('Luciana','Gutierrez',1174801620,'lu_gutierrez@outlook.com','Avenida Martín Garcia 416','Profesor','1993-05-23',50000,3000004120),
+('Martín','Pignatelli',1177409723,'martin.pignatelli@gmail.com','Avenida San Juan 4114','Profesor','1988-11-04',85000,3000009301),
+('Agustina','Rivas',1192445970,'agus.rivas@gmail.com','La Rioja 433','Profesor','1992-09-30',60000,3000009780),
+('Romina','Vitrelli',1156912587,'r_vitrelli@outlook.com','Chile 230','Profesor','1994-07-19',75000,3000006471),
+('Mirtha','Dominguez',1137814690,'mirtadominguez1966@gmail.com',null,'Profesor','1966-03-23',50000,3000002549),
+('Carlos','Gonzalez',1123256107,'carlosgonzalez_1971@gmail.com','Avenida Almirante Brown 710','Profesor','1971-08-03',60000,3000005410),
+('Sabrina','Dermian',1126541011,'sabrina.dermian@gmail.com','Adolfo Alsina 416','Profesor','1989-12-03',55000,3000009431),
+('Daniela','Ortiz',1184631059,'dani_ortiz@gmail.com','Lavalleja 933','Profesor','1986-01-19',100000,3000002888),
+('Lucrecia','Spinelli',1137901491,'l.spinelli@gmail.com','Ramon Falcon 3160','Profesor','1987-07-30',65000,3000006908),
+('Clara','Rodriguez',1189361971,null,'Avenida Independencia 364','Profesor','1958-12-22',70000,null),
+('Jorge','DAntonio',1161983850,'jorge_dantonio_tango@gmail.com','Amenabar 6713','Profesor','1978-03-26',90000,3000009117),
+('Alejandro','Dimas',1159036471,'ale_dimas@gmail.com','Mexico 1323','Profesor','1989-10-07',90000,3000006170),
+('Mariel','Fernandez',1182736148,'mariel_fernandez89@gmail.com','Guemes 2594','Profesor','1989-11-27',60000,3000006473),
+('Martina','Rossi',1195412633,'martina_rossi_93@gmail.com','Laprida 1626','Profesor','1993-01-04',60000,3000002510),
+('Lucas','Romero',1169612987,'lucas.romero91@gmail.com','Constitución 1497','Profesor','1991-10-08',90000,3000005517),
+('Vanesa','Ferrari',1169301710,'vane_ferrari@gmail.com','Avenida Jujuy 980','Profesor','1983-10-09',80000,3000003790),
+('Paula','Rosales',1162807294,'pau_rosales@gmail.com','Catamarca 497','Profesor','1998-04-16',70000,3000002490),
+('Horacio','Manfredi',1169701740,'horacio.manfredi.folklore@gmail.com','Estados Unidos 6540','Profesor','1958-11-29',80000,3000004766),
+('Diego','Gianni',1178431790,'diego_gianni@gmail.com','Crisologo Larralde 4890','Profesor','1990-08-25',80000,3000009676),
+('Tomas','Bertelli',1173491019,'tbertelli@casasan.com','Avenida Corrientes 880','Administrativo','1995-02-03',120000,3000009694),
+('Lucia','Martinez',1149461719,'lmartinez@casasan.com','Sarmiento 323','Administrativo','1992-06-06',150000,3000002426),
+('Rodolfo','Rabelli',1149708077,'rodolfo.rabelli@casasan.com','Avenida Libertador 4660','Contador','1968-10-22',300000,3000007137),
+('Oscar','Graziano',1189401673,'o.graziano@gmail.com','Avenida Córdoba 3743','Abogado','1977-12-23',400000,3000006466),
+('Susana','Ortega',1123204718,'s.ortega@gmail.com','Avenida Belgrano 414','Maestranza','1963-01-19',100000,3000008810),
+('Clarisa','Drovandi',1159802626,null,'Adolfo Alsina 225','Maestranza','1973-05-29',100000,3000004080),
+('Roxana','Ramirez',1129187097,'r.ramirez@gmail.com','Avenida Entre Rios 904','Maestranza','1980-04-16',100000,3000006351);
 
 
 
 
-INSERT INTO trabajadores(nombre,apellido,telefono,correo,direccion,funcion,id_actividad,nacimiento,sueldo,cbu)
+
+
+
+
+
+
+
+-- Inserción de datos de la tabla tareas administrativas
+INSERT INTO tareas_administrativas(nombre_tarea_administrativa,id_sede,id_trabajador,dia_tarea,horario_comienzo_tarea,horario_fin_tarea)
 VALUES
-('Agustin','Garcia',1101741033,'a.garcia@gmail.com','Avenida Directorio 2230','Profesor',19,'1998-04-16',70000,3000001616),
-('Amanda','Giacobelli',1187234919,'amanda.giacobelli@gmail.com','Portela 554','Profesor',12,'1971-02-10',90000,3000001491),
-('Luciana','Gutierrez',1174801620,'lu_gutierrez@outlook.com','Avenida Martín Garcia 416','Profesor',15,'1993-05-23',50000,3000004120),
-('Martín','Pignatelli',1177409723,'martin.pignatelli@gmail.com','Avenida San Juan 4114','Profesor',5,'1988-11-04',85000,3000009301),
-('Agustina','Rivas',1192445970,'agus.rivas@gmail.com','La Rioja 433','Profesor',20,'1992-09-30',60000,3000009780),
-('Romina','Vitrelli',1156912587,'r_vitrelli@outlook.com','Chile 230','Profesor',2,'1994-07-19',75000,3000006471),
-('Mirtha','Dominguez',1137814690,'mirtadominguez1966@gmail.com',null,'Profesor',6,'1966-03-23',50000,3000002549),
-('Carlos','Gonzalezz',1123256107,'carlosgonzalez_1971@gmail.com','Avenida Almirante Brown 710','Profesor',22,'1971-08-03',60000,3000005410),
-('Sabrina','Dermian',1126541011,'sabrina.dermian@gmail.com','Adolfo Alsina 416','Profesor',16,'1989-12-03',55000,3000009431),
-('Daniela','Ortiz',1184631059,'dani_ortiz@gmail.com','Lavalleja 933','Profesor',3,'1986-01-19',100000,3000002888),
-('Lucrecia','Spinelli',1137901491,'l.spinelli@gmail.com','Ramon Falcon 3160','Profesor',7,'1987-07-30',65000,3000006908),
-('Clara','Rodriguez',1189361971,null,'Avenida Independencia 364','Profesor',21,'1958-12-22',0,null),
-('Jorge','DAntonio',1161983850,'jorge_dantonio_tango@gmail.com','Amenabar 6713','Profesor',4,'1978-03-26',90000,3000009117),
-('Alejandro','Dimas',1159036471,'ale_dimas@gmail.com','Mexico 1323','Profesor',17,'1989-10-07',90000,3000006170),
-('Mariel','Fernandez',1182736148,'mariel_fernandez89@gmail.com','Guemes 2594','Profesor',13,'1989-11-27',60000,3000006473),
-('Martina','Rossi',1195412633,'martina_rossi_93@gmail.com','Laprida 1626','Profesor',14,'1993-01-04',60000,3000002510),
-('Lucas','Romero',1169612987,'lucas.romero91@gmail.com','Constitución 1497','Profesor',18,'1991-10-08',90000,3000005517),
-('Vanesa','Ferrari',1169301710,'vane_ferrari@gmail.com','Avenida Jujuy 980','Profesor',9,'1983-10-09',80000,3000003790),
-('Paula','Rosales',1162807294,'pau_rosales@gmail.com','Catamarca 497','Profesor',11,'1998-04-16',70000,3000002490),
-('Horacio','Manfredi',1169701740,'horacio.manfredi.folklore@gmail.com','Estados Unidos 6540','Profesor',8,'1958-11-29',80000,3000004766),
-('Diego','Gianni',1178431790,'diego_gianni@gmail.com','Crisologo Larralde 4890','Profesor',10,'1990-08-25',80000,3000009676),
-('Tomas','Bertelli',1173491019,'tbertelli@casasan.com','Avenida Corrientes 880','Administrativo',1,'1995-02-03',120000,3000009694),
-('Lucia','Martinez',1149461719,'lmartinez@casasan.com','Sarmiento 323','Administrativo',1,'1992-06-06',150000,3000002426),
-('Rodolfo','Rabelli',1149708077,'rrabelli@casasan.com','Avenida Libertador 4660','Contador',1,'1968-10-22',300000,3000007137),
-('Oscar','Graziano',1189401673,'o.graziano@gmail.com','Avenida Córdoba 3743','Abogado',1,'1977-12-23',400000,3000006466),
-('Susana','Ortega',1123204718,'s.ortega@gmail.com','Avenida Belgrano 414','Maestranza',1,'1963-01-19',100000,3000008810),
-('Roxana','Ramirez',1129187097,'r.ramirez@gmail.com','Avenida Entre Rios 904','Maestranza',1,'1980-04-16',100000,3000006351);
+('Administrativo 1', 3,22,'Lunes a Viernes', '09:00:00','18:00:00'),
+('Administrativo 2', 3,23, 'Lunes a Viernes', '09:00:00','18:00:00'),
+('Contador', 3,24, 'Lunes a Viernes', '09:00:00','18:00:00'),
+('Abogado', 3,25, 'Lunes a Viernes', '09:00:00','18:00:00'),
+('Maestranza 1', 3,26, 'Lunes a Viernes', '09:00:00','18:00:00'),
+('Maestranza', 3,27, 'Lunes a Viernes', '09:00:00','18:00:00'),
+('Maestranza', 3,28, 'Lunes a Viernes', '09:00:00','18:00:00');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo)
+-- Inserción de datos de la tabla actividades
+INSERT INTO actividades(nombre_actividad,id_sede,id_trabajador,dia_actividad,horario_comienzo_actividad,horario_fin_actividad,capacidad_actividad,inscriptos_actividad)
 VALUES
-(3,10,60000,'Contado'),
-(1,6,90000,'Contado'),
-(2,19,70000,'Contado'),
-(4,21,50000,'Transferencia'),
-(5,4,80000,'Contado'),
-(1,7,30000,'Contado'),
-(4,9,70000,'Transferencia'),
-(4,14,90000,'Contado'),
-(1,20,70000,'Contado'),
-(5,3,50000,'Transferencia'),
-(3,9,70000,'Contado'),
-(2,17,80000,'Transferencia'),
-(1,20,80000,'Contado'),
-(4,13,100000,'Transferencia'),
-(1,2,70000,'Contado'),
-(5,8,65000,'Contado'),
-(1,7,80000,'Contado'),
-(2,10,90000,'Transferencia'),
-(3,13,30000,'Contado'),
-(4,12,80000,'Transferencia');
+('Danzas arabes', 1,6, 'Martes','18:00:00','20:00:00',20,null),
+('Consulta psicológica', 3,10, 'Lunes y Sábado', '14:00:00','16:00:00',1,null),
+('Tango', 1,13,'Lunes y Miércoles y Viernes', '16:00:00','18:00:00',10,null),
+('Kung Fu', 1,5,'Martes y Jueves', '18:00:00','20:00:00',16,null),
+('Peluquería', 1,7,'Lunes a Viernes', '15:00:00','17:00:00',10,null),
+('Urbano', 1,11,'Lunes y Miércoles', '17:00:00','19:00:00',20,null),
+('Folklore', 1,20,'Miércoles y Viernes', '19:00:00','21:00:00',25,null),
+('Teatro', 1,18,'Martes y Jueves', '20:00:00','22:00:00',30,null),
+('Alfabetización Digital', 2,21,'Lunes y Miércoles', '18:00:00','20:00:00',20,null),
+('Fotografia', 2,19, 'Lunes y Miércoles', '18:00:00','20:00:00',10,null),
+('Baile adultos', 1,2, 'Martes y Jueves', '18:00:00','20:00:00',20,null),
+('Manicura y pedicuria', 1,15,' Miércoles y Viernes', '15:00:00','17:00:00',10,null),
+('Dibujo', 2,16, 'Martes y Jueves', '17:00:00','19:00:00',14,null),
+('Murga', 1,3,'Lunes y Miércoles y Viernes', '20:00:00','22:00:00',20,null),
+('Apoyo escolar', 2,9, 'Lunes y Miércoles y Viernes', '17:00:00','18:00:00',10,null),
+('Robotica', 2,14, 'Martes y Jueves', '16:00:00','18:00:00',20,null),
+('Diseño de páginas web', 2,17,'Miércoles y Viernes', '18:00:00','20:00:00',20,null),
+('Freestyle', 2,1, 'Martes y Viernes', '17:00:00','19:00:00',30,null),
+('Zumba', 1,20, 'Martes y Jueves', '19:00:00','20:00:00',30,null),
+('Bingo para adultos', 1,12,'Lunes y Miércoles y viernes', '15:00:00','18:00:00',40,null),
+('Panaderia', 1,8, 'Martes y Jueves', '15:00:00','17:00:00',20,null);
 
 
 
@@ -131,6 +113,48 @@ VALUES
 
 
 
+
+
+
+
+
+
+
+
+-- Inserción datos tabla flujo de caja
+INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo,fecha_pago)
+VALUES
+(3,10,100000,'Contado','2023-03-16 12:00:00'),
+(1,6,75000,'Contado','2023-03-16 13:00:00'),
+(2,19,70000,'Contado','2023-03-16 13:30:00'),
+(4,21,80000,'Transferencia','2023-03-16 14:00:00'),
+(5,4,85000,'Contado','2023-03-16 15:00:00'),
+(1,7,50000,'Contado','2023-03-17 12:00:00'),
+(4,9,55000,'Transferencia','2023-03-17 12:30:00'),
+(4,14,90000,'Contado','2023-03-17 13:00:00'),
+(1,20,80000,'Contado','2023-03-17 13:30:00'),
+(5,3,50000,'Transferencia','2023-03-17 14:00:00'),
+(3,9,55000,'Contado','2023-03-18 12:00:00'),
+(2,17,90000,'Transferencia','2023-03-18 12:30:00'),
+(1,20,80000,'Contado','2023-03-18 13:00:00'),
+(4,13,90000,'Transferencia','2023-03-18 14:00:00'),
+(1,2,90000,'Contado','2023-03-18 14:30:00'),
+(5,8,60000,'Contado','2023-03-18 15:00:00'),
+(1,7,50000,'Contado','2023-03-18 16:00:00'),
+(2,10,100000,'Transferencia','2023-03-19 12:00:00'),
+(3,13,90000,'Contado','2023-03-19 13:00:00'),
+(2,22,120000,'Transferencia','2023-03-19 14:00:00'),
+(3,23,150000,'Contado','2023-03-19 15:00:00'),
+(4,12,70000,'Transferencia','2023-03-19 16:00:00');
+
+
+
+
+
+
+
+
+-- Inserción de datos de la tabla miembros
 INSERT INTO miembros(nombre,apellido,correo,telefono,nacimiento,centro_jubilados)
 VALUES
 ('Raul','Jimenez','raul_jimenez_1970@gmail.com',1158913647,'1970-05-16',True),
@@ -171,15 +195,94 @@ VALUES
 ('Marina','Escobar','maru.escobar@outlook.com',1161201912,'1983-04-19',False),
 ('Camila','Uriarte','cami.uriarte@gmail.com',1160665980,'1991-12-04',False),
 ('Monica','Spagnuolo','monica_spagnuolo@gmail.com',1160309941,'1962-10-06',True),
+('Javier','Blanco','javi_blanco91@gmail.com',1136769759,'1991-05-30',False),
+('Diego','Groisman','diego.groisman@gmail.com',1124669078,'1983-07-17',False), ('Nehuen','Silva','nehuen.silva97@gmail.com',1182974301,'1997-08-06',False),
+('Damian','Fuentes','damian_fuentes@gmail.com',1163204755,'1985-09-03',False), ('Claudia','Savoia',null,1169221694,'1967-11-06',True),
+('Ruben','Jerez','ruben.jerez@gmail.com',1150524971,'1955-06-23',True), 
+('Nicolas','Ledesma', 'nico.ledesma89@gmail.com',1112265914,'1987-11-26',False),
 ('Roxana','Galindez','rogalindez1990@outlook.com',1566101911,'1990-11-12',False);
 
-
+-- Inserción de datos de la tabla inscripciones
 INSERT INTO inscripciones(id_miembro,id_actividad,fecha_inscripcion)
 VALUES
-(1, 21, '2024-01-02'),
-(2, 21, '2024-01-07'),
-(3, 21, '2024-01-06'),
-(6, 21, '2024-01-02'),
-(4, 10, '2024-01-03'),
-(8, 10, '2024-01-06'),
-(9, 10, '2024-01-04');
+(1, 14, '2024-01-02'),
+(2, 14, '2024-01-07'),
+(3, 14, '2024-01-06'),
+(6, 14, '2024-01-02'),
+(4, 3, '2024-01-03'),
+(8, 3, '2024-01-06'),
+(16, 5, '2024-01-07'),
+(17, 4, '2024-01-07'),
+(10, 4, '2024-01-07'),
+(9, 3, '2024-01-08'),
+(19, 8, '2024-01-08'),
+(8, 5, '2024-01-08'),
+(31, 1, '2024-01-09'),
+(35, 2, '2024-01-09'),
+(38, 3, '2024-01-09'),
+(36, 5, '2024-01-09'),
+(46, 12, '2024-01-09'),
+(41, 1, '2024-01-09'),
+(27, 5, '2024-01-09'),
+(29, 4, '2024-01-09'),
+(33, 8, '2024-01-09'),
+(43, 5, '2024-01-09'),
+(39, 1, '2024-01-09'),
+(44, 13, '2024-01-09'),
+(37, 14, '2024-01-09'),
+(45, 12, '2024-01-09'),
+(28, 1, '2024-01-09'),
+(40, 5, '2024-01-09'),
+(39, 9, '2024-01-10'),
+(37, 8, '2024-01-10'),
+(46, 4, '2024-01-10'),
+(29, 12, '2024-01-10'),
+(44, 1, '2024-01-10'),
+(25, 5, '2024-01-10'),
+(18, 3, '2024-01-10'),
+(27, 11, '2024-01-10'),
+(16, 2, '2024-01-10'),
+(30, 5, '2024-01-10'),
+(43, 5, '2024-01-10'),
+(36, 13, '2024-01-10'),
+(33, 12, '2024-01-10'),
+(25, 12, '2024-01-10'),
+(17, 12, '2024-01-10'),
+(18, 13, '2024-01-10'),
+(22, 3, '2024-01-10'),
+(16, 2, '2024-01-10'),
+(5, 5, '2024-01-10'),
+(9, 10, '2024-01-10'),
+(17, 19, '2024-03-02'),
+(41, 18, '2024-03-02'),
+(44, 18, '2024-03-02'),
+(34, 18, '2024-03-02'),
+(32, 18, '2024-03-02'),
+(46, 21, '2024-03-02'),
+(37, 20, '2024-03-02'),
+(43, 20, '2024-03-02'),
+(26, 20, '2024-03-02'),
+(14, 16, '2024-03-03'),
+(18, 16, '2024-03-03'),
+(33, 21, '2024-03-03'),
+(16, 21, '2024-03-03'),
+(11, 21, '2024-03-03'),
+(40, 21, '2024-03-03'),
+(24, 19, '2024-03-03'),
+(33, 19, '2024-03-03'),
+(36, 19, '2024-03-04'),
+(21, 18, '2024-03-04'),
+(41, 20, '2024-03-04'),
+(30, 20, '2024-03-04'),
+(29, 16, '2024-03-04');
+
+-- Inserción datos tabla donaciones
+INSERT INTO donaciones(id_cuenta,donante,monto)
+VALUES
+(3,'Arcor',120000),
+(1,'Sancor Seguros',85000);
+
+
+-- Para poder hacer la inserción de datos del campo inscriptos_actividad de la tabla actividades preciso hacer un update 
+UPDATE actividades SET inscriptos_actividad = (SELECT COUNT(id_actividad) FROM inscripciones WHERE inscripciones.id_actividad = actividades.id_actividad);
+
