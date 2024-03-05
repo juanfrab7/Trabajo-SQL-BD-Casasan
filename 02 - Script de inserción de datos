@@ -84,7 +84,7 @@ VALUES
 INSERT INTO actividades(nombre_actividad,id_sede,id_trabajador,dia_actividad,horario_comienzo_actividad,horario_fin_actividad,capacidad_actividad,inscriptos_actividad)
 VALUES
 ('Danzas arabes', 1,6, 'Martes','18:00:00','20:00:00',20,null),
-('Consulta psicológica', 3,10, 'Lunes y Sábado', '14:00:00','16:00:00',1,null),
+('Consulta psicológica', 1,10, 'Lunes y Sábado', '14:00:00','16:00:00',3,null),
 ('Tango', 1,13,'Lunes y Miércoles y Viernes', '16:00:00','18:00:00',10,null),
 ('Kung Fu', 1,5,'Martes y Jueves', '18:00:00','20:00:00',16,null),
 ('Peluquería', 1,7,'Lunes a Viernes', '15:00:00','17:00:00',10,null),
@@ -276,6 +276,7 @@ VALUES
 (30, 20, '2024-03-04'),
 (29, 16, '2024-03-04');
 
+
 -- Inserción datos tabla donaciones
 INSERT INTO donaciones(id_cuenta,donante,monto)
 VALUES
@@ -285,4 +286,5 @@ VALUES
 
 -- Para poder hacer la inserción de datos del campo inscriptos_actividad de la tabla actividades preciso hacer un update 
 UPDATE actividades SET inscriptos_actividad = (SELECT COUNT(id_actividad) FROM inscripciones WHERE inscripciones.id_actividad = actividades.id_actividad);
+
 
