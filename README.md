@@ -1,5 +1,9 @@
-Introducción
+Proyecto Final Base de datos con SQL
+Fundación Casasan
+
 ![image](https://github.com/juanfrab7/Trabajo-SQL-BD-Casasan/assets/112890703/8ffc4274-328b-4893-adb7-71f1d46c149c)
+
+Alumno Juan Francisco Barragan
 
 Introducción
 
