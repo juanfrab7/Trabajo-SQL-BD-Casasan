@@ -1,4 +1,5 @@
 **Proyecto Final Base de datos con SQL**
+
 Fundación Casasan
 
 ![image](https://github.com/juanfrab7/Trabajo-SQL-BD-Casasan/assets/112890703/8ffc4274-328b-4893-adb7-71f1d46c149c)
@@ -30,5 +31,16 @@ CasaSan es una fundación ubicada en el barrio de La Boca creada por Mercedes Fr
 5.	Solucionar errores que se pudieran ocasionar en inscripciones a cursos, solapamiento de actividades en las sedes, etc.
 
 
-Modelo de negocio
+**Modelo de negocio**
 
+Casasan es una fundación que se caracteriza por brindar una variedad de actividades artísticas, tecnológicas, recreativas y deportivas a los vecinos del barrio de La Boca y alrededores. La propuesta a los vecinos es brindarle actividades  gratuitas para los que se hagan miembros. A su vez los trabajadores no realizan sus labores ad honorem sino que le facturan a la fundación. Por último la fundación se financia con donaciones de personas físicas y jurídicas.
+
+**Entidades y relaciones**
+
+**Diagrama Entidad-Relación**
+
+![image](https://github.com/juanfrab7/Trabajo-SQL-BD-Casasan/assets/112890703/c3304204-21d7-456c-8c89-16409760adc2)
+
+**Modelo esquemático de la aplicación mysql**
+
+![image](https://github.com/juanfrab7/Trabajo-SQL-BD-Casasan/assets/112890703/11c1be06-1742-479f-9d57-9071737b7afd)
