@@ -1,4 +1,5 @@
 Introducción
+![image](https://github.com/juanfrab7/Trabajo-SQL-BD-Casasan/assets/112890703/8ffc4274-328b-4893-adb7-71f1d46c149c)
 
 CasaSan es una fundación ubicada en el barrio de La Boca creada por Mercedes Frassia en el difícil momento de la perdida de un hijo. 
 Ella en un momento de mucho dolor se hizo cargo de la casa de su difunto hijo pero tuvo la idea de abrir las puertas de ese inmueble para que seres queridos suyos comiencen a brindar talleres gratuitos a la comunidad del barrio. 
