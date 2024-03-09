@@ -1,126 +1,79 @@
 -- VISTAS
 -- Script de creación de vistas
-USE dbcasasan;
 
+USE dbcasasan;
 -- La vista identifica dentro de los trabajadores a los que son administrativos
-CREATE view administrativos
-AS
-  SELECT id_trabajador,
-         nombre,
-         apellido
-  FROM   dbcasasan.trabajadores
-  WHERE  funcion LIKE 'Administrativo'
-  ORDER  BY ( apellido ) ASC;
+CREATE VIEW administrativos AS
+SELECT id_trabajador, nombre, apellido FROM dbcasasan.trabajadores
+WHERE funcion LIKE 'Administrativo'
+ORDER BY (apellido) ASC;
 
 -- Esta vista permite ver sólo las actividades que se desarrollan 
 -- en la sede Olavarria
-CREATE view actividades_olavarria
-AS
-  SELECT nombre_actividad,
-         dia_actividad,
-         horario_comienzo_actividad,
-         horario_fin_actividad,
-         capacidad_actividad,
-         inscriptos_actividad
-  FROM   actividades
-  WHERE  id_sede LIKE '1'
-  ORDER  BY nombre_actividad ASC;
+CREATE VIEW actividades_olavarria AS
+SELECT nombre_actividad, dia_actividad,horario_comienzo_actividad, horario_fin_actividad,capacidad_actividad, inscriptos_actividad FROM actividades
+WHERE id_sede LIKE '1'
+ORDER BY nombre_actividad ASC;
 
 -- Esta vista permite ver sólo las actividades que se desarrollan 
 -- en la sede Punto Digital
-CREATE view actividades_punto_digital
-AS
-  SELECT nombre_actividad,
-         dia_actividad,
-         horario_comienzo_actividad,
-         horario_fin_actividad,
-         capacidad_actividad,
-         inscriptos_actividad
-  FROM   actividades
-  WHERE  id_sede LIKE '2'
-  ORDER  BY nombre_actividad ASC;
+CREATE VIEW actividades_punto_digital AS
+SELECT nombre_actividad, dia_actividad,horario_comienzo_actividad, horario_fin_actividad,capacidad_actividad, inscriptos_actividad FROM actividades
+WHERE id_sede LIKE '2'
+ORDER BY nombre_actividad ASC;
 
 -- Esta vista permite observar los sueldos de trabajadores superiores al promedio
-CREATE view sueldos_sobre_promedio
-AS
-  SELECT id_pago,
-         flujo_de_caja.id_trabajador,
-         monto,
-         trabajadores.nombre,
-         trabajadores.apellido
-  FROM   flujo_de_caja
-         INNER JOIN trabajadores
-                 ON flujo_de_caja.id_trabajador = trabajadores.id_trabajador
-  WHERE  monto > (SELECT Avg(monto)
-                  FROM   flujo_de_caja);
+CREATE VIEW sueldos_sobre_promedio AS
+SELECT id_pago, flujo_de_caja.id_trabajador, monto, trabajadores.nombre, trabajadores.apellido FROM flujo_de_caja
+INNER JOIN trabajadores
+ON flujo_de_caja.id_trabajador = trabajadores.id_trabajador
+WHERE monto > (SELECT AVG(monto)FROM flujo_de_caja);
 
 -- Vista total de inscripciones en todos los cursos
-CREATE view detalles_inscriptos_cursos
-AS
-  SELECT inscripciones.id_miembro,
-         inscripciones.id_inscripcion,
-         inscripciones.id_actividad,
-         inscripciones.fecha_inscripcion,
-         miembros.nombre,
-         miembros.apellido,
-         actividades.nombre_actividad
-  FROM   inscripciones
-         INNER JOIN miembros
-                 ON inscripciones.id_miembro = miembros.id_miembro
-         INNER JOIN actividades
-                 ON inscripciones.id_actividad = actividades.id_actividad
-  ORDER  BY id_actividad ASC,
-            fecha_inscripcion ASC,
-            apellido ASC;
+CREATE VIEW detalles_inscriptos_cursos AS
+SELECT inscripciones.id_miembro, inscripciones.id_inscripcion,
+inscripciones.id_actividad, inscripciones.fecha_inscripcion,
+miembros.nombre, miembros.apellido,
+actividades.nombre_actividad
+FROM inscripciones
+INNER JOIN miembros
+ON inscripciones.id_miembro = miembros.id_miembro
+INNER JOIN actividades
+ON inscripciones.id_actividad = actividades.id_actividad
+ORDER BY id_actividad ASC, fecha_inscripcion ASC, apellido ASC;
 
 -- Vista total de los pagos realizados a los trabajadores
-CREATE view pagos_realizados
-AS
-  SELECT flujo_de_caja.id_pago,
-         flujo_de_caja.fecha_pago,
-         flujo_de_caja.id_cuenta,
-         cuentas_bancarias.banco,
-         cuentas_bancarias.numero_cuenta,
-         flujo_de_caja.monto,
-         flujo_de_caja.tipo,
-         flujo_de_caja.id_trabajador,
-         trabajadores.nombre   AS nombre_trabajador,
-         trabajadores.apellido AS apellido_trabajador,
-         trabajadores.funcion,
-         actividades.nombre_actividad,
-         tareas_administrativas.nombre_tarea_administrativa
-  FROM   flujo_de_caja
-         INNER JOIN trabajadores
-                 ON flujo_de_caja.id_trabajador = trabajadores.id_trabajador
-         LEFT JOIN actividades
-                ON trabajadores.id_trabajador = actividades.id_trabajador
-         LEFT JOIN tareas_administrativas
-                ON trabajadores.id_trabajador =
-                   tareas_administrativas.id_trabajador
-         INNER JOIN cuentas_bancarias
-                 ON flujo_de_caja.id_cuenta = cuentas_bancarias.id_cuenta
-  ORDER  BY flujo_de_caja.id_pago;
+CREATE VIEW pagos_realizados AS
+SELECT flujo_de_caja.id_pago, 
+flujo_de_caja.fecha_pago, flujo_de_caja.id_cuenta,
+cuentas_bancarias.banco, cuentas_bancarias.numero_cuenta, 
+flujo_de_caja.monto, flujo_de_caja.tipo, 
+flujo_de_caja.id_trabajador,
+trabajadores.nombre AS nombre_trabajador, trabajadores.apellido AS apellido_trabajador, trabajadores.funcion,
+actividades.nombre_actividad, tareas_administrativas.nombre_tarea_administrativa
+FROM flujo_de_caja
+INNER JOIN trabajadores
+ON flujo_de_caja.id_trabajador = trabajadores.id_trabajador
+LEFT JOIN actividades
+ON trabajadores.id_trabajador = actividades.id_trabajador
+LEFT JOIN tareas_administrativas
+ON trabajadores.id_trabajador = tareas_administrativas.id_trabajador
+INNER JOIN cuentas_bancarias
+ON flujo_de_caja.id_cuenta = cuentas_bancarias.id_cuenta
+ORDER BY flujo_de_caja.id_pago;
 
 -- Vista de top 5 actividades más concurridas
-CREATE view actividades_mas_concurridas
-AS
-  SELECT *
-  FROM   actividades
-  ORDER  BY actividades.inscriptos_actividad DESC,
-            actividades.nombre_actividad ASC
-  LIMIT  5;
+CREATE VIEW actividades_mas_concurridas AS
+SELECT *
+FROM actividades
+ORDER BY actividades.inscriptos_actividad DESC, actividades.nombre_actividad ASC
+LIMIT 5;
 
 -- Esta vista permite discriminar a los miembros que pertenecen 
 -- al centro de jubilados 
-CREATE view centro_jubilados
-AS
-  SELECT id_miembro,
-         nombre,
-         apellido,
-         correo,
-         telefono,
-         nacimiento
-  FROM   miembros
-  WHERE  centro_jubilados = true
-  ORDER  BY apellido ASC,
-            nombre ASC; 
+CREATE VIEW centro_jubilados AS
+SELECT id_miembro, nombre, apellido, correo, telefono, nacimiento
+FROM miembros
+WHERE centro_jubilados = True
+ORDER BY apellido ASC, nombre ASC;
+
