@@ -1,165 +1,190 @@
 -- CREACIÓN BD Y ENTIDADES
 -- Script de creación de base de datos
 CREATE DATABASE dbcasasan;
-
 USE dbcasasan;
-
 -- Script de creación de tablas
--- Creación tabla trabajadores. Esta tabla contiene toda la información de los trabajadores que se desempeñan en la fundación.
-CREATE TABLE `trabajadores`
-  (
-     `id_trabajador` INT PRIMARY KEY NOT NULL auto_increment,
-     `nombre`        VARCHAR(255) NOT NULL,
-     `apellido`      VARCHAR(255) NOT NULL,
-     `telefono`      INT,
-     `correo`        VARCHAR(255),
-     `direccion`     VARCHAR(255),
-     `funcion`       VARCHAR(255),
-     `nacimiento`    DATE,
-     `sueldo`        INT,
-     `cbu`           FLOAT
-  );
+-- Creación tabla trabajadores. 
+-- Esta tabla contiene la información de los trabajadores de la fundación.
+CREATE TABLE `trabajadores` (
+  `id_trabajador` int PRIMARY KEY not null auto_increment,
+  `nombre` varchar(255) not null,
+  `apellido` varchar(255) not null,
+  `telefono` int,
+  `correo` varchar(255),
+  `direccion` varchar(255),
+  `funcion` varchar(255),
+  `nacimiento` date,
+  `sueldo` int,
+  `cbu` float
+);
 
--- Creación tabla consejo directivo. Esta tabla contiene toda la información de los directivos de la fundación.
-CREATE TABLE `consejo_directivo`
-  (
-     `id_directivo` INT PRIMARY KEY NOT NULL auto_increment,
-     `nombre`       VARCHAR(255),
-     `apellido`     VARCHAR(255),
-     `telefono`     INT,
-     `correo`       VARCHAR(255),
-     `direccion`    VARCHAR(255),
-     `funcion`      VARCHAR(255)
-  );
+-- Creación tabla consejo directivo. 
+-- Esta tabla contiene toda la información de los directivos de la fundación.
+CREATE TABLE `consejo_directivo` (
+  `id_directivo` int PRIMARY KEY not null auto_increment,
+  `nombre` varchar(255),
+  `apellido` varchar(255),
+  `telefono` int,
+  `correo` varchar(255),
+  `direccion` varchar(255),
+  `funcion` varchar(255)
+);
 
--- Creación tabla cuentas bancarias. Esta tabla contiene toda la información de las cuentas bancarias que utiliza la fundación.
-CREATE TABLE `cuentas_bancarias`
-  (
-     `id_cuenta`     INT PRIMARY KEY NOT NULL auto_increment,
-     `banco`         VARCHAR(255),
-     `sucursal`      VARCHAR(255),
-     `numero_cuenta` INT,
-     `tipo`          VARCHAR(55),
-     `saldo`         FLOAT
-  );
+-- Creación tabla cuentas bancarias. 
+-- Esta tabla contiene toda la información de las cuentas bancarias que utiliza la fundación.
+CREATE TABLE `cuentas_bancarias` (
+  `id_cuenta` int PRIMARY KEY not null auto_increment,
+  `banco` varchar(255),
+  `sucursal` varchar(255),
+  `numero_cuenta` int,
+  `tipo` varchar(55),
+  `saldo` float
+);
 
---- Creación tabla flujo de caja. Esta tabla muestra todos los movimientos que tienen las cuentas bancarias de la fundación.
-CREATE TABLE `flujo_de_caja`
-  (
-     `id_pago`       INT PRIMARY KEY NOT NULL auto_increment,
-     `id_cuenta`     INT,
-     `id_trabajador` INT,
-     `monto`         INT,
-     `tipo`          VARCHAR(45),
-     `fecha_pago`    DATETIME
-  );
+--- Creación tabla flujo de caja.
+-- Esta tabla muestra todos los movimientos en las cuentas bancarias 
+CREATE TABLE `flujo_de_caja` (
+  `id_pago` int PRIMARY KEY not null auto_increment,
+  `id_cuenta` int,
+  `id_trabajador` int,
+  `monto` int,
+  `tipo` varchar(45),
+  `fecha_pago` datetime 
+);
 
---- Creación tabla sedes. Esta tabla contiene toda la información de las sedes de la fundación.
-CREATE TABLE `sedes`
-  (
-     `id_sede`        INT PRIMARY KEY NOT NULL auto_increment,
-     `nombre_sede`    VARCHAR(255),
-     `direccion_sede` VARCHAR(255),
-     `correo_sede`    VARCHAR(255),
-     `telefono_sede`  INT,
-     `codigo_postal`  INT
-  );
+-- Creación tabla sedes. 
+-- Esta tabla contiene toda la información de las sedes de la fundación.
+CREATE TABLE `sedes` (
+  `id_sede` int PRIMARY KEY not null auto_increment,
+  `nombre_sede` varchar(255),
+  `direccion_sede` varchar(255),
+  `correo_sede` varchar(255),
+  `telefono_sede` int,
+  `codigo_postal` int
+);
 
--- Creación tabla miembros. Esta tabla contiene toda la información de los miembros que concurren a la fundación.
-CREATE TABLE `miembros`
-  (
-     `id_miembro`       INT PRIMARY KEY NOT NULL auto_increment,
-     `nombre`           VARCHAR(255) NOT NULL,
-     `apellido`         VARCHAR(255) NOT NULL,
-     `correo`           VARCHAR(255),
-     `telefono`         FLOAT,
-     `nacimiento`       DATE,
-     `centro_jubilados` BOOLEAN
-  );
 
--- Creación tabla actividades. Esta tabla contiene toda la información de las actividades que se realizan en la fundación.
-CREATE TABLE `actividades`
-  (
-     `id_actividad`               INT PRIMARY KEY NOT NULL auto_increment,
-     `nombre_actividad`           VARCHAR(255) NOT NULL,
-     `id_sede`                    INT,
-     `id_trabajador`              INT,
-     `dia_actividad`              VARCHAR(255),
-     `horario_comienzo_actividad` TIME,
-     `horario_fin_actividad`      TIME,
-     `capacidad_actividad`        INT,
-     `inscriptos_actividad`       INT
-  );
+-- Creación tabla miembros. 
+-- Esta tabla contiene la información de los miembros que concurren a la fundación.
+CREATE TABLE `miembros` (
+  `id_miembro` int PRIMARY KEY not null auto_increment,
+  `nombre` varchar(255) not null,
+  `apellido` varchar(255) not null,
+  `correo` varchar(255),
+  `telefono` float,
+  `nacimiento` date,
+  `centro_jubilados` boolean
+);
 
--- Creación tabla tareas administrativas. Esta tabla contiene toda la información de las actividades administrativas que se realizan en la fundación.
-CREATE TABLE `tareas_administrativas`
-  (
-     `id_tarea_administrativa`     INT PRIMARY KEY NOT NULL auto_increment,
-     `nombre_tarea_administrativa` VARCHAR(255) NOT NULL,
-     `id_sede`                     INT,
-     `id_trabajador`               INT,
-     `dia_tarea`                   VARCHAR(255),
-     `horario_comienzo_tarea`      TIME,
-     `horario_fin_tarea`           TIME
-  );
+-- Creación tabla actividades. 
+-- Esta tabla contiene la información de las actividades
+-- que se dictan en la fundación.
+CREATE TABLE `actividades` (
+  `id_actividad` int PRIMARY KEY not null auto_increment,
+  `nombre_actividad` varchar(255) not null,
+  `id_sede` int,
+  `id_trabajador` int,
+  `dia_actividad` varchar(255),
+  `horario_comienzo_actividad` time,
+  `horario_fin_actividad` time,
+  `capacidad_actividad` int,
+  `inscriptos_actividad` int
+);
 
--- Creación tabla inscripciones. Esta tabla los datos de las inscripciones en las actividades
-CREATE TABLE `inscripciones`
-  (
-     `id_inscripcion`    INT PRIMARY KEY NOT NULL auto_increment,
-     `id_miembro`        INT,
-     `id_actividad`      INT,
-     `fecha_inscripcion` DATE
-  );
 
-CREATE TABLE `donaciones`
-  (
-     `id_donacion` INT PRIMARY KEY NOT NULL auto_increment,
-     `id_cuenta`   INT,
-     `donante`     VARCHAR(255),
-     `monto`       INT
-  );
 
--- Script de establecimiento de claves foraneas
--- En la tabla inscripciones se indica que el campo id_miembro es una clave foránea de la tabla miembros 
+
+
+
+-- Creación tabla tareas administrativas. 
+-- Esta tabla se incluyen las tareas administrativas 
+-- que se realizan en la fundación.
+CREATE TABLE `tareas_administrativas` (
+  `id_tarea_administrativa` int PRIMARY KEY not null auto_increment,
+  `nombre_tarea_administrativa` varchar(255) not null,
+  `id_sede` int,
+  `id_trabajador` int,
+  `dia_tarea` varchar(255),
+  `horario_comienzo_tarea` time,
+  `horario_fin_tarea` time
+);
+
+
+-- Creación tabla inscripciones. 
+-- Esta tabla los datos de las inscripciones en las actividades
+CREATE TABLE `inscripciones` (
+  `id_inscripcion` int PRIMARY KEY not null auto_increment,
+  `id_miembro` int,
+  `id_actividad` int,
+  `fecha_inscripcion` date
+);
+
+CREATE TABLE `donaciones` (
+  `id_donacion` int PRIMARY KEY not null auto_increment,
+  `id_cuenta` int,
+  `donante` VARCHAR(255), 
+  `monto` int
+);
+
+
+
+
+
+-- Script de establecimiento de claves foráneas
+
+-- Se establece el campo id_miembro de la tabla inscripciones
+-- como clave foránea de la tabla miembros  
 ALTER TABLE inscripciones
-  ADD CONSTRAINT fk_miembro FOREIGN KEY (id_miembro) REFERENCES miembros(
-  id_miembro);
+ADD CONSTRAINT FK_miembro
+FOREIGN KEY (id_miembro) REFERENCES miembros(id_miembro);
 
--- En la tabla inscripciones se indica que el campo id_actividad es una clave foránea de la tabla actividades
+-- Se establece el campo id_actividad de la tabla inscripciones
+-- como clave foránea de la tabla actividades  
 ALTER TABLE inscripciones
-  ADD CONSTRAINT fk_actividad FOREIGN KEY (id_actividad) REFERENCES actividades(
-  id_actividad) ON DELETE CASCADE;
+ADD CONSTRAINT FK_actividad
+FOREIGN KEY (id_actividad) REFERENCES actividades(id_actividad) ON DELETE CASCADE;
 
--- En la tabla inscripciones se indica que el campo id_cuenta es una clave foránea de la tabla cuentas_bancarias
+-- Se establece el campo id_cuenta de la tabla flujo_de_caja
+-- como clave foránea de la tabla cuentas_bancarias
 ALTER TABLE flujo_de_caja
-  ADD CONSTRAINT fk_cuenta FOREIGN KEY (id_cuenta) REFERENCES cuentas_bancarias(
-  id_cuenta);
+ADD CONSTRAINT FK_cuenta
+FOREIGN KEY (id_cuenta) REFERENCES cuentas_bancarias(id_cuenta);
 
--- En la tabla inscripciones se indica que el campo id_actividad es una clave foránea de la tabla actividades
+-- Se establece el campo id_trabajador de la tabla flujo_de_caja
+-- como clave foránea de la tabla trabajadores
 ALTER TABLE flujo_de_caja
-  ADD CONSTRAINT fk_trabajador FOREIGN KEY (id_trabajador) REFERENCES
-  trabajadores(id_trabajador);
+ADD CONSTRAINT FK_trabajador
+FOREIGN KEY (id_trabajador) REFERENCES trabajadores(id_trabajador);
 
--- En la tabla actividades se indica que el campo id_sede es una clave foránea de la tabla sedes
+-- Se establece el campo id_sede de la tabla actividades
+-- como clave foránea de la tabla sedes
 ALTER TABLE actividades
-  ADD CONSTRAINT fk_sede FOREIGN KEY (id_sede) REFERENCES sedes(id_sede);
+ADD CONSTRAINT FK_sede
+FOREIGN KEY (id_sede) REFERENCES sedes(id_sede);
 
--- En la tabla actividades se indica que el campo id_trabajador es una clave foránea de la tabla trabajadores
+
+
+-- Se establece el campo id_trabajador de la tabla actividades
+-- como clave foránea de la tabla trabajadores
 ALTER TABLE actividades
-  ADD CONSTRAINT fk_trabajador_actividades FOREIGN KEY (id_trabajador)
-  REFERENCES trabajadores(id_trabajador) ON DELETE SET NULL;
+ADD CONSTRAINT FK_trabajador_actividades
+FOREIGN KEY (id_trabajador) REFERENCES trabajadores(id_trabajador) ON DELETE SET NULL;
 
--- En la tabla actividades se indica que el campo id_trabajador es una clave foránea de la tabla trabajadores
+
+-- Se establece el campo id_trabajador de la tabla tareas_administrativas
+-- como clave foránea de la tabla trabajadores
 ALTER TABLE tareas_administrativas
-  ADD CONSTRAINT fk_trabajador_tarea FOREIGN KEY (id_trabajador) REFERENCES
-  trabajadores(id_trabajador) ON DELETE SET NULL;
+ADD CONSTRAINT FK_trabajador_tarea
+FOREIGN KEY (id_trabajador) REFERENCES trabajadores(id_trabajador) ON DELETE SET NULL;
 
--- En la tabla actividades se indica que el campo id_sede es una clave foránea de la tabla sedes
+-- Se establece el campo id_sede de la tabla tareas_administrativas
+-- como clave foránea de la tabla sedes
 ALTER TABLE tareas_administrativas
-  ADD CONSTRAINT fk_sede_tarea FOREIGN KEY (id_sede) REFERENCES sedes(id_sede);
+ADD CONSTRAINT FK_sede_tarea
+FOREIGN KEY (id_sede) REFERENCES sedes(id_sede);
 
--- En la tabla donaciones se indican que el campo cuenta es clave foránea de la tabla cuentas_bancarias
+-- Se establece el campo id_cuenta de la tabla donaciones
+-- como clave foránea de la tabla cuentas_bancarias
 ALTER TABLE donaciones
-  ADD CONSTRAINT fk_cuenta_donacion FOREIGN KEY (id_cuenta) REFERENCES
-  cuentas_bancarias(id_cuenta); 
+ADD CONSTRAINT FK_cuenta_donacion
+FOREIGN KEY (id_cuenta) REFERENCES cuentas_bancarias(id_cuenta);
