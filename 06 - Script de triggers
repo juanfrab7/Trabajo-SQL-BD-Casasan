@@ -1,5 +1,6 @@
+-- TRIGGERS
 -- Consultas Trigger para los nuevos registro que se hagan en caja
--- Tabla bitácora de registro de pagos
+-- Creación Tabla bitácora de registro de pagos
 
 CREATE TABLE ‘bitacora_registros_caja’ (
 id_log_cashflow INT AUTO_INCREMENT PRIMARY KEY,
@@ -16,9 +17,12 @@ FOR EACH ROW
 INSERT INTO ‘bitacora_registros_caja’ (id_pago,monto,hora,usuario) VALUES (new.id_pago,new.monto,current_timestamp(),user());
 
 -- Ejemplos carga de pago que activan el trigger con todos los datos del pago realizado
-INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo)
-VALUES
-(3,10,60000,'Contado');
+INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo) VALUES(3,10,60000,'Contado');
+
+
+
+
+
 
 
 
@@ -46,6 +50,6 @@ FOR EACH ROW
 INSERT INTO ‘bitacora_bajas_inscripciones’(id_inscripcion,id_actividad,id_miembro,hora,usuario) VALUES(old.id_inscripcion,old.id_actividad,old.id_miembro, current_timestamp(),user());
 
 -- Ejemplos eliminación de inscripciones que activan el trigger con todos los datos del registro eliminado
-DELETE FROM inscripciones WHERE id_inscripcion = 4;
-DELETE FROM inscripciones WHERE id_miembro = 4 AND id_actividad =10;
-CALL agregar_o_eliminar(2,9,10);
+-- DELETE FROM inscripciones WHERE id_inscripcion = 4;
+-- DELETE FROM inscripciones WHERE id_miembro = 4 AND id_actividad =10;
+-- CALL inscribir_o_desinscribir(2,17,4);
