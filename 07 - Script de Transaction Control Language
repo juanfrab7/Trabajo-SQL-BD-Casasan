@@ -1,3 +1,4 @@
+-- Script de Transaction Control Language
 START TRANSACTION;
 USE dbcasasan;
 SET FOREIGN_KEY_CHECKS=0;
@@ -5,10 +6,11 @@ DELETE FROM trabajadores WHERE id_trabajador = 4;
 DELETE FROM trabajadores WHERE id_trabajador = 6;
 DELETE FROM trabajadores WHERE id_trabajador = 12;
 
+-- Se deja en comentario el rollback
 -- 	ROLLBACK;
 
 COMMIT;
--- Los registros de los trabajadores eliminados son:
+-- Los registros de los trabajadores eliminados para recuperar en las tablas son:
 -- INSERT INTO trabajadores(nombre,apellido,telefono,correo,direccion,funcion,id_actividad,nacimiento,sueldo,cbu) 
 -- VALUES('Martín','Pignatelli',1177409723,'martin.pignatelli@gmail.com','Avenida San Juan 4114','Profesor',5,'1988-11-04',85000,3000009301),
 -- ('Romina','Vitrelli',1156912587,'r_vitrelli@outlook.com','Chile 230','Profesor',2,'1994-07-19',75000,3000006471),
@@ -26,6 +28,11 @@ COMMIT;
 
 
 
+
+
+
+
+-- Script de inserción de nuevos registros con el uso de savepoint
 START TRANSACTION;
 USE dbcasasan;
 
@@ -44,4 +51,5 @@ VALUES
 ('Ricardo','Santos','ricardosantos1961@outlook.com',1124263480,'1961-11-05',True);
 SAVEPOINT lote_carga_2;
 -- RELEASE SAVEPOINT lote_carga_1
+
 
