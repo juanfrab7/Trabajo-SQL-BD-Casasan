@@ -1,73 +1,145 @@
--- Función métrica inscriptos por curso
+-- FUNCIONES
+-- Script de funciones
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `inscriptos_por_curso`(inscriptos INT, actividades INT) RETURNS float
+-- Función cantidad anotados y cupos libres en una actividad
+DELIMITER \\
+CREATE DEFINER=`root`@`localhost` FUNCTION `vacantes_actividad`(actividad INT) RETURNS varchar(255) CHARSET utf8mb4
     DETERMINISTIC
 BEGIN
-DECLARE inscriptos_curso FLOAT;
-SET inscriptos_curso = inscriptos / actividades;
-RETURN inscriptos_curso;
-END
-
-SELECT @cantidad_inscriptos := count(id_inscripcion) FROM inscripciones;
-SELECT @cantidad_actividades := count(*) FROM actividades;
-SELECT inscriptos_por_curso(@cantidad_inscriptos,@cantidad_actividades)
-
--- Función métrica desembolso total sobre cantidad de trabajadores
-
-CREATE DEFINER=`root`@`localhost` FUNCTION `desembolso_por_trabajador`(gastos FLOAT,trabajadores INT) RETURNS int
-    DETERMINISTIC
-BEGIN
-DECLARE desembolso FLOAT;
-SET desembolso = gastos / trabajadores;
-RETURN desembolso;
-END
-
-SELECT @cantidad_gastada := sum(monto) FROM flujo_de_caja;
-SELECT @cantidad_trabajadores := count(id_trabajador) FROM trabajadores;
-SELECT desembolso_por_trabajador(@cantidad_gastada,@cantidad_trabajadores)
-
--- Función cantidad anotados en un curso
-
-CREATE DEFINER=`root`@`localhost` FUNCTION `cantidad_anotados`(actividad INT) RETURNS varchar(255) CHARSET utf8mb4
-    DETERMINISTIC
-BEGIN
-DECLARE anotados INT;
+DECLARE anotados INT; 
+DECLARE cupos_actividad INT;
 DECLARE respuesta VARCHAR(255);
 DECLARE nombre VARCHAR(255);
 
-SELECT nombre_actividad INTO nombre FROM actividades  WHERE id_actividad = actividad;
-SELECT COUNT(id_actividad) INTO anotados FROM inscripciones WHERE id_actividad = actividad;
-SET respuesta = CONCAT(
-'La cantidad de anotados del curso numero',actividad,' ',nombre,' es: ',anotados);
+IF actividad <= (SELECT COUNT(id_actividad) FROM actividades) THEN
+	SELECT COUNT(id_actividad) INTO anotados FROM inscripciones WHERE id_actividad = actividad;
+	SELECT nombre_actividad INTO nombre FROM actividades  WHERE id_actividad = actividad;
+	SELECT capacidad_actividad INTO cupos_actividad FROM actividades WHERE id_actividad = actividad;
+
+	SET respuesta = CONCAT(
+	'La cantidad de anotados del curso numero ',actividad,' ',nombre,' es: ',anotados,' y los cupos disponibles son ',cupos_actividad);
+ELSE
+	SET respuesta = CONCAT(
+	'La actividad consultada no existe');
+END IF;
 RETURN respuesta;
-END
+END \\
+
+-- Script de prueba función `vacantes_actividad` para actividad que existe
+-- SELECT vacantes_actividad(4) AS anotados_y_vacantes_actividad;
+-- Script de prueba función `vacantes_actividad` para actividad que no existe
+-- SELECT vacantes_actividad(29) AS anotados_y_vacantes_actividad;
 
 -- Función total de pagos y cantidad de pagos a trabajador
-
-CREATE DEFINER=`root`@`localhost` FUNCTION `pagado_trabajador`(id_ingresado INT) RETURNS varchar(255) CHARSET utf8mb4
+DELIMITER \\
+CREATE DEFINER=`root`@`localhost` FUNCTION `abonado_trabajador`(id_ingresado INT) RETURNS varchar(255) CHARSET utf8mb4
     DETERMINISTIC
-BEGIN
+BEGIN 
+DECLARE nombre_trabajador VARCHAR(255);
 DECLARE apellido_trabajador VARCHAR(255);
 DECLARE pagado_trabajador FLOAT;
 DECLARE resultado VARCHAR(255);
 DECLARE cantidad_pagos INT;
 
-SELECT apellido INTO apellido_trabajador
-FROM trabajadores
-WHERE id_trabajador = id_ingresado;
+IF id_ingresado <= (SELECT COUNT(id_trabajador) FROM trabajadores) THEN
+	IF (SELECT COUNT(id_trabajador) FROM flujo_de_caja WHERE id_trabajador = id_ingresado) != 0 THEN 
+		
 
-SELECT SUM(monto) INTO pagado_trabajador
-FROM flujo_de_caja
-WHERE id_trabajador = id_ingresado;
+SELECT nombre INTO nombre_trabajador FROM trabajadores WHERE id_trabajador = id_ingresado;
 
-SELECT COUNT(monto) INTO cantidad_pagos
-FROM flujo_de_caja
-WHERE id_trabajador = id_ingresado;
 
-SET resultado = CONCAT(
-'Pagado al trabajador ', apellido_trabajador, ': ',
-'Total de gastos: ', pagado_trabajador, ' // ' ,
-'Cantidad de pagos: ', cantidad_pagos);
+		SELECT apellido INTO apellido_trabajador FROM trabajadores WHERE id_trabajador = id_ingresado;
+
+
+		SELECT SUM(monto) INTO pagado_trabajador FROM flujo_de_caja WHERE id_trabajador = id_ingresado;
+
+		SELECT COUNT(monto) INTO cantidad_pagos FROM flujo_de_caja WHERE id_trabajador = id_ingresado;
+
+		SET resultado = CONCAT(
+'Pagado al trabajador ',nombre_trabajador ,' ',apellido_trabajador, ': ','Total desembolsado: ', pagado_trabajador, ' // ' ,'Cantidad de pagos: ', cantidad_pagos);
+	ELSE 
+		SELECT nombre INTO nombre_trabajador
+		FROM trabajadores
+		WHERE id_trabajador = id_ingresado;
+
+		SELECT apellido INTO apellido_trabajador
+		FROM trabajadores
+		WHERE id_trabajador = id_ingresado;
+		SET resultado = CONCAT(
+		'El trabajador ',nombre_trabajador,' ',apellido_trabajador,'no tiene pagos realizados');
+	END IF;
+ELSE 
+		SET resultado = CONCAT(
+	'El trabajador cargado no existe');
+END IF;
 RETURN resultado;
-END
+END \\
+-- Script de prueba trabajador con pagos realizados
+-- SELECT abonado_trabajador(10) AS pagado_trabajador;
+
+
+
+
+
+
+-- Función pagar a un trabajador al contado
+DELIMITER \\
+CREATE DEFINER=`root`@`localhost` FUNCTION `pago_trabajador_contado`(trabajador INT, cuenta INT) RETURNS varchar(255) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+DECLARE saldo_original INT;
+DECLARE haber INT;
+DECLARE respuesta VARCHAR(255);
+
+IF (trabajador BETWEEN 0 AND (SELECT COUNT(id_trabajador) FROM trabajadores)) AND (cuenta BETWEEN 0 AND (SELECT COUNT(id_cuenta) FROM cuentas_bancarias)) THEN
+
+	SELECT sueldo INTO haber FROM trabajadores WHERE id_trabajador = trabajador;
+	SELECT saldo INTO saldo_original FROM cuentas_bancarias WHERE id_cuenta = cuenta;
+
+	INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo,fecha_pago)
+	VALUES(cuenta,trabajador,haber,'contado',now());
+	-- SELECT * FROM flujo_de_caja;
+
+	UPDATE cuentas_bancarias SET saldo = saldo_original - haber WHERE id_cuenta = cuenta;
+	SET respuesta = CONCAT(
+	'Se le pagaron los haberes al trabajador ',trabajador,' y se descontó el monto de la cuenta ',cuenta);
+ELSE 
+	SET respuesta = CONCAT('Cuenta o legajo trabajador mal ingresado');
+END IF;
+RETURN respuesta;
+END \\
+
+
+
+
+
+
+
+
+-- Función pagar a un trabajador con transferencia
+DELIMITER \\
+CREATE DEFINER=`root`@`localhost` FUNCTION `pago_trabajador_transferencia`(trabajador INT, cuenta INT) RETURNS varchar(255) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+DECLARE saldo_original INT;
+DECLARE haber INT;
+DECLARE respuesta VARCHAR(255);
+
+IF (trabajador BETWEEN 0 AND (SELECT COUNT(id_trabajador) FROM trabajadores)) AND (cuenta BETWEEN 0 AND (SELECT COUNT(id_cuenta) FROM cuentas_bancarias)) THEN
+
+	SELECT sueldo INTO haber FROM trabajadores WHERE id_trabajador = trabajador;
+	SELECT saldo INTO saldo_original FROM cuentas_bancarias WHERE id_cuenta = cuenta;
+
+	INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo,fecha_pago)
+	VALUES(cuenta,trabajador,haber,'transferencia',now());
+	-- SELECT * FROM flujo_de_caja;
+
+	UPDATE cuentas_bancarias SET saldo = saldo_original - haber WHERE id_cuenta = cuenta;
+	SET respuesta = CONCAT(
+	'Se le pagaron los haberes al trabajador ',trabajador,' y se descontó el monto de la cuenta ',cuenta);
+ELSE 
+	SET respuesta = CONCAT('Cuenta o legajo trabajador mal ingresado');
+END IF;
+RETURN respuesta;
+END \\
 
