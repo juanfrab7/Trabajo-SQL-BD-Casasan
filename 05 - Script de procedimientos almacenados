@@ -1,22 +1,119 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `agregar_o_eliminar`(IN tipo INT,IN miembro INT,IN actividad INT)
+-- PROCEDIMIENTOS ALMACENADOS
+-- Procedimiento métrica inscriptos por actividades
+DELIMITER \\
+CREATE DEFINER=`root`@`localhost` PROCEDURE `inscriptos_por_actividades`()
+    DETERMINISTIC
+BEGIN
+DECLARE inscriptos_curso FLOAT;
+DECLARE inscriptos INT;
+DECLARE cursos INT;
+
+SELECT COUNT(id_actividad) INTO cursos FROM actividades;
+SELECT COUNT(id_inscripcion) INTO inscriptos FROM inscripciones;
+SET inscriptos_curso = inscriptos / cursos;
+SELECT CONCAT('La metrica de inscriptos por curso es ',inscriptos_curso);
+
+END \\
+-- Script ejemplo procedimiento almacenado metrica inscriptos por actividades
+-- CALL inscriptos_por_actividades();
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Procedimiento metrica desembolso total sobre cantidad de trabajadores
+
+DELIMITER \\
+CREATE DEFINER=`root`@`localhost` PROCEDURE `salario_promedio_trabajador`()
+    DETERMINISTIC
+BEGIN
+DECLARE desembolso FLOAT;
+DECLARE pagos FLOAT;
+DECLARE colaboradores INT;
+
+SELECT SUM(sueldo) INTO pagos FROM trabajadores;
+SELECT COUNT(id_trabajador) INTO colaboradores FROM trabajadores;
+SET desembolso = pagos / colaboradores;
+SELECT CONCAT('La metrica de salario promedio por trabajador es ',desembolso);
+
+END \\
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER \\
+-- Procedimiento almacenado inscribir o desinscribir personas a actividades
+CREATE DEFINER=`root`@`localhost` PROCEDURE `inscribir_o_desinscribir`(IN tipo INT,IN miembro INT,IN actividad INT)
 BEGIN
 DECLARE ULTIMO int;
+DECLARE nombre_miembro VARCHAR(255);
+DECLARE apellido_miembro VARCHAR(255);
+DECLARE des_actividad VARCHAR(255);
 
-IF tipo = 1 THEN
-	-- Caso que el usuario ingrese 1 se inscribe con los datos que se cargaron como parametros
-	INSERT INTO inscripciones(id_miembro,id_actividad,fecha_inscripcion) VALUES(miembro,actividad,curdate());
-    SELECT * FROM inscripciones;
+
+IF (miembro > (SELECT COUNT(id_miembro) FROM miembros)) OR (actividad >(SELECT COUNT(id_actividad) FROM actividades)) THEN
+	-- Caso que se ingrese un miembro o una actividad inexistente
+	SELECT CONCAT('El miembro o la actividad ingresada no existe');
 ELSE
-	IF tipo = 2 THEN
-		-- Caso que se ingrese 2 se elimina las inscripciones del miembro
-		DELETE FROM dbcasasan.inscripciones WHERE id_miembro = miembro AND id_actividad = actividad;
-        SELECT * FROM inscripciones;
+	
+    IF tipo = 1 THEN
+		IF (SELECT capacidad_actividad FROM actividades WHERE id_actividad = actividad) > (SELECT inscriptos_actividad FROM actividades WHERE id_actividad = actividad) THEN
+			-- Caso de cupo disponible
+            IF (SELECT COUNT(*) FROM inscripciones WHERE id_miembro = miembro AND id_actividad = actividad) = 1 THEN
+				-- Caso que se ingresen datos de un usuario que ya está inscripto a una actividad
+				SELECT CONCAT('El usuario ya está inscripto a la actividad');
+			ELSE
+				-- Caso que el usuario ingrese 1 se inscribe con los datos que se cargaron como parametros
+				INSERT INTO inscripciones(id_miembro,id_actividad,fecha_inscripcion) VALUES(miembro,actividad,curdate());
+                SELECT nombre INTO nombre_miembro FROM miembros WHERE id_miembro = miembro;
+                SELECT apellido INTO apellido_miembro FROM miembros WHERE id_miembro = miembro;
+                SELECT nombre_actividad INTO des_actividad FROM actividades WHERE id_actividad = actividad;
+				SELECT CONCAT('El miembro ',miembro,' ',nombre_miembro,' ',apellido_miembro,' ha sido inscripto a la actividad ',actividad,' ',des_actividad);
+                UPDATE actividades SET inscriptos_actividad = (SELECT COUNT(id_actividad) FROM inscripciones WHERE inscripciones.id_actividad = actividad) WHERE actividades.id_actividad = actividad;
+			END IF;
+		ELSE
+			-- Caso de cupo completo
+            SELECT CONCAT('El cupo de la actividad está completo');
+		END IF;
 	ELSE
-		-- Caso que el usuario no ingrese 1 o 2 no hace nada
-        SELECT CONCAT('No se reconoce el orden');
+		IF tipo = 2 THEN
+			IF (SELECT COUNT(*) FROM inscripciones WHERE id_miembro = miembro AND id_actividad = actividad) = 1 THEN
+				-- Caso que se ingrese 2 se elimina las inscripciones del miembro
+				DELETE FROM dbcasasan.inscripciones WHERE id_miembro = miembro AND id_actividad = actividad;
+                SELECT nombre INTO nombre_miembro FROM miembros WHERE id_miembro = miembro;
+                SELECT apellido INTO apellido_miembro FROM miembros WHERE id_miembro = miembro;
+                SELECT nombre_actividad INTO des_actividad FROM actividades WHERE id_actividad = actividad;
+				SELECT CONCAT('El miembro ',miembro,' ',nombre_miembro,' ',apellido_miembro,' está eliminado de la actividad ',actividad,' ',des_actividad);
+                UPDATE actividades SET inscriptos_actividad = (SELECT COUNT(id_actividad) FROM inscripciones WHERE inscripciones.id_actividad = actividad) WHERE actividades.id_actividad = actividad;
+			ELSE 
+				-- Caso que se quiera eliminar a un miembro que no está inscripto en una actividad
+                SELECT CONCAT('La selección a eliminar es invalida');
+			END IF;
+            
+		ELSE
+			-- Caso que el usuario no ingrese 1 o 2 no hace nada
+			SELECT CONCAT('No se reconoce el orden');
+		END IF;
 	END IF;
 END IF;
-END
+END \\
 
 
 
@@ -26,53 +123,14 @@ END
 
 
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ordenar_trabajadores`(IN campo varchar(255),IN orden varchar(255))
-BEGIN
--- Todas estas variables no me funcionaron para ordenar por campo
-DECLARE columna varchar(255);
 
--- DEFINO un IF que ordenará si cuando llamé al procedimiento le puse ASC o DESC. El parametro es campo pero no funciona
-IF orden = 'asc' OR orden = 'ascendente' THEN
-	CASE
-		WHEN campo = 'id_trabajador' THEN SELECT * FROM trabajadores ORDER BY id_trabajador ASC;
-        WHEN campo = 'nombre' THEN SELECT * FROM trabajadores ORDER BY nombre ASC;
-        WHEN campo = 'apellido' THEN SELECT * FROM trabajadores ORDER BY apellido ASC;
-        WHEN campo = 'telefono' THEN SELECT * FROM trabajadores ORDER BY telefono ASC;
-        WHEN campo = 'correo' THEN SELECT * FROM trabajadores ORDER BY correo ASC;
-        WHEN campo = 'direccion' THEN SELECT * FROM trabajadores ORDER BY direccion ASC;
-        WHEN campo = 'funcion' THEN SELECT * FROM trabajadores ORDER BY funcion ASC;
-        WHEN campo = 'id_actividad' THEN SELECT * FROM trabajadores ORDER BY id_actividad ASC;
-        WHEN campo = 'nacimiento' THEN SELECT * FROM trabajadores ORDER BY nacimiento ASC;
-        WHEN campo = 'sueldo' THEN SELECT * FROM trabajadores ORDER BY sueldo ASC;
-        WHEN campo = 'cbu' THEN SELECT * FROM trabajadores ORDER BY cbu ASC;
-        ELSE SELECT CONCAT('No se reconoce el campo (columna de la tabla)');
-	END CASE;
-ELSE
-    IF orden = 'desc' OR orden = 'descendente' THEN
-		CASE
-			WHEN campo = 'id_trabajador' THEN SELECT * FROM trabajadores ORDER BY id_trabajador DESC;
-			WHEN campo = 'nombre' THEN SELECT * FROM trabajadores ORDER BY nombre DESC;
-			WHEN campo = 'apellido' THEN SELECT * FROM trabajadores ORDER BY apellido DESC;
-			WHEN campo = 'telefono' THEN SELECT * FROM trabajadores ORDER BY telefono DESC;
-			WHEN campo = 'correo' THEN SELECT * FROM trabajadores ORDER BY correo DESC;
-			WHEN campo = 'direccion' THEN SELECT * FROM trabajadores ORDER BY direccion DESC;
-			WHEN campo = 'funcion' THEN SELECT * FROM trabajadores ORDER BY funcion DESC;
-			WHEN campo = 'id_actividad' THEN SELECT * FROM trabajadores ORDER BY id_actividad DESC;
-			WHEN campo = 'nacimiento' THEN SELECT * FROM trabajadores ORDER BY nacimiento DESC;
-			WHEN campo = 'sueldo' THEN SELECT * FROM trabajadores ORDER BY sueldo DESC;
-			WHEN campo = 'cbu' THEN SELECT * FROM trabajadores ORDER BY cbu DESC;
-			ELSE SELECT CONCAT('No se reconoce el campo (columna de la tabla)');
-		END CASE;
-	ELSE 
-		SELECT CONCAT('No se reconoce el orden');
-	END IF; 
-    
-END IF;
-END
 
--- ORDENAMIENTO DE TABLAS VARIANTE 2
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ordenarTabla`(
+
+
+-- Procedimiento almacenado ordenar tabla
+DELIMITER \\
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ordenar_tabla`(
   IN nombre_tabla VARCHAR(255),
   IN campo_ordenamiento VARCHAR(255),
   IN orden VARCHAR(10)
@@ -88,5 +146,279 @@ END IF;
 PREPARE stmt FROM @sql_query;
 EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
-END
+END \\
 
+
+
+
+
+
+
+
+
+
+
+-- Procedimiento almacenado inscriptos por actividad
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `inscriptos_actividad`(IN curso INT)
+BEGIN
+DECLARE cantidad INT;
+DECLARE sql_query VARCHAR(1000);
+-- SET cantidad = 1;
+SET @sql_query = CONCAT('Lista curso ',curso);
+
+IF (SELECT Count(id_actividad) FROM inscripciones WHERE id_actividad = curso) > 0 THEN
+	
+	SELECT inscripciones.id_miembro, 
+	inscripciones.id_actividad, inscripciones.fecha_inscripcion,
+	miembros.nombre, miembros.apellido,
+	actividades.nombre_actividad
+	FROM inscripciones
+	INNER JOIN miembros
+	ON inscripciones.id_miembro = miembros.id_miembro
+	INNER JOIN actividades
+	ON inscripciones.id_actividad = actividades.id_actividad
+	WHERE inscripciones.id_actividad = curso
+    ORDER BY inscripciones.fecha_inscripcion;
+ELSE
+	SELECT CONCAT('No hay inscriptos en el curso ingresado');
+END IF;
+
+END //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Procedimiento pago a trabajador al contado
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pago_trabajador_contado`(IN colaborador INT, IN cuenta INT)
+BEGIN
+DECLARE saldo_original INT;
+DECLARE haber INT;
+
+IF (colaborador > (SELECT COUNT(id_trabajador) FROM trabajadores)) OR (cuenta >(SELECT COUNT(id_cuenta) FROM cuentas_bancarias)) THEN
+	SELECT CONCAT('El miembro o la cuenta ingresada no existe');
+ELSE
+
+	SELECT sueldo INTO haber FROM trabajadores WHERE id_trabajador = colaborador;
+	SELECT saldo INTO saldo_original FROM cuentas_bancarias WHERE id_cuenta = cuenta;
+
+	INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo,fecha_pago)
+	VALUES(cuenta,colaborador,haber,'contado',now());
+	-- SELECT * FROM flujo_de_caja;
+
+	UPDATE cuentas_bancarias SET saldo = saldo_original - haber WHERE id_cuenta = cuenta;
+	SELECT * FROM cuentas_bancarias;
+END IF;
+END //
+
+
+
+
+
+
+
+-- Procedimiento pago a trabajador por transferencia
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pago_trabajador_transferencia`(IN colaborador INT, IN cuenta INT)
+BEGIN
+DECLARE saldo_original INT;
+DECLARE haber INT;
+
+IF (colaborador > (SELECT COUNT(id_trabajador) FROM trabajadores)) OR (cuenta >(SELECT COUNT(id_cuenta) FROM cuentas_bancarias)) THEN
+	SELECT CONCAT('El miembro o la cuenta ingresada no existe');
+ELSE
+
+	SELECT sueldo INTO haber FROM trabajadores WHERE id_trabajador = colaborador;
+	SELECT saldo INTO saldo_original FROM cuentas_bancarias WHERE id_cuenta = cuenta;
+
+	INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo,fecha_pago)
+	VALUES(cuenta,colaborador,haber,'transferencia',now());
+	-- SELECT * FROM flujo_de_caja;
+
+	UPDATE cuentas_bancarias SET saldo = saldo_original - haber WHERE id_cuenta = cuenta;
+	SELECT * FROM cuentas_bancarias;
+END IF;
+END //
+
+
+
+
+
+
+
+-- Procedimiento carga de inscriptos en la tabla actividades
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_anotados`()
+BEGIN
+DECLARE anotados INT;
+DECLARE cantidad_actividades INT;
+DECLARE contador INT;
+
+SET contador = 0;
+-- Cargo en una variable la cantidad de cursos
+SELECT COUNT(id_actividad) INTO cantidad_actividades FROM actividades;
+-- Comienzo la iteracion
+iterar : LOOP
+	IF contador > cantidad_actividades THEN
+		LEAVE iterar;
+	END IF;
+    SELECT COUNT(id_actividad) INTO anotados FROM inscripciones WHERE id_actividad = contador;
+	UPDATE actividades SET inscriptos_actividad = anotados WHERE id_actividad = contador;
+	SET contador = contador + 1;
+END LOOP;
+
+END //
+
+-- Procedimiento pagar todos los sueldos por contado
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pagar_sueldos_contado`(IN cuenta INT)
+BEGIN
+-- Declaro las variables que voy a usar
+DECLARE fecha_desembolso DATETIME;
+DECLARE contador INT;
+DECLARE colaborador INT;
+DECLARE cantidad_trabajadores INT;
+DECLARE haber INT;
+DECLARE saldo_original INT;
+
+IF cuenta BETWEEN 1 AND (SELECT COUNT(id_cuenta) FROM cuentas_bancarias)  THEN
+	-- Inicializo los valores de las variables declaradas
+	SET contador = 1;
+	SET fecha_desembolso = now();
+
+	-- Cargo en una variable la cantidad de trabajadores
+	SELECT COUNT(id_trabajador) INTO cantidad_trabajadores FROM trabajadores;
+
+	-- Comienzo la iteracion
+	iterar_pagos : LOOP
+		IF contador > cantidad_trabajadores THEN
+			LEAVE iterar_pagos;
+		END IF;
+
+	-- Cargo las variables que voy a utilizar para el pago de todos los trabajadores
+	SELECT sueldo INTO haber FROM trabajadores WHERE id_trabajador = contador;
+	SELECT saldo INTO saldo_original FROM cuentas_bancarias WHERE id_cuenta = cuenta;
+
+	-- Ingreso el pago en la tabla flujo de caja
+	INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo,fecha_pago)
+	VALUES(cuenta,contador,haber,'contado',fecha_desembolso);
+
+	UPDATE cuentas_bancarias SET saldo = saldo_original - haber WHERE id_cuenta = cuenta;
+
+	SET contador = contador + 1;
+	END LOOP;
+    SELECT CONCAT('Pagos realizados');
+ELSE
+	SELECT CONCAT('La cuenta ingresada es incorrecta');
+END IF;
+END //
+
+
+
+
+
+
+
+-- Procedimiento pagar todos los sueldos con transferencia
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pagar_sueldos_transferencia`(IN cuenta INT)
+BEGIN
+-- Declaro las variables que voy a usar
+DECLARE fecha_desembolso DATETIME;
+DECLARE contador INT;
+DECLARE colaborador INT;
+DECLARE cantidad_trabajadores INT;
+DECLARE haber INT;
+DECLARE saldo_original INT;
+
+IF cuenta BETWEEN 1 AND (SELECT COUNT(id_cuenta) FROM cuentas_bancarias)  THEN
+	-- Inicializo los valores de las variables declaradas
+	SET contador = 1;
+	SET fecha_desembolso = now();
+
+	-- Cargo en una variable la cantidad de trabajadores
+	SELECT COUNT(id_trabajador) INTO cantidad_trabajadores FROM trabajadores;
+
+	-- Comienzo la iteracion
+	iterar_pagos : LOOP
+		IF contador > cantidad_trabajadores THEN
+			LEAVE iterar_pagos;
+		END IF;
+
+	-- Cargo las variables que voy a utilizar para el pago de todos los trabajadores
+	SELECT sueldo INTO haber FROM trabajadores WHERE id_trabajador = contador;
+	SELECT saldo INTO saldo_original FROM cuentas_bancarias WHERE id_cuenta = cuenta;
+
+	-- Ingreso el pago en la tabla flujo de caja
+	INSERT INTO flujo_de_caja(id_cuenta,id_trabajador,monto,tipo,fecha_pago)
+	VALUES(cuenta,contador,haber,'transferencia',fecha_desembolso);
+
+	UPDATE cuentas_bancarias SET saldo = saldo_original - haber WHERE id_cuenta = cuenta;
+
+	SET contador = contador + 1;
+	END LOOP;
+    SELECT CONCAT('Pagos realizados');
+ELSE
+	SELECT CONCAT('La cuenta ingresada es incorrecta');
+END IF;
+END //
+
+
+
+
+
+
+
+-- Procedimiento para recibir una donación de una persona física o jurídica
+DELIMITER \\
+CREATE DEFINER=`root`@`localhost` PROCEDURE `recibir_donacion`(IN cuenta INT,IN persona_donante VARCHAR(255),IN monto INT)
+BEGIN
+DECLARE saldo_original INT;
+IF monto > 0 AND cuenta BETWEEN 0 AND (SELECT COUNT(id_cuenta) FROM cuentas_bancarias) THEN
+	INSERT INTO donaciones(id_cuenta,donante,monto)
+	VALUES(cuenta,persona_donante,monto);
+
+	SELECT saldo INTO saldo_original FROM cuentas_bancarias WHERE id_cuenta = cuenta;
+	UPDATE cuentas_bancarias SET saldo = saldo_original + monto WHERE id_cuenta = cuenta;
+    SELECT CONCAT('La donación de ',persona_donante,' ha sido correctamente registrada');
+ELSE
+	SELECT CONCAT('El monto y/ la cuenta ingresada son incorrectas');
+END IF;
+END \\
+
+DELIMITER \\
+CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_actividad`(IN nombre VARCHAR(255),IN sede INT,IN trabajador INT, IN dia VARCHAR(255), IN comienzo TIME, IN fin TIME,IN capacidad INT)
+BEGIN
+IF (trabajador BETWEEN 1 AND (SELECT COUNT(id_trabajador) FROM trabajadores)) AND (sede BETWEEN 1 AND (SELECT COUNT(id_sede) FROM sedes)) THEN
+	INSERT INTO actividades(nombre_actividad,id_sede,id_trabajador,dia_actividad,horario_comienzo_actividad,horario_fin_actividad,capacidad_actividad,inscriptos_actividad)
+	VALUES(nombre,sede,trabajador,dia,comienzo,fin,capacidad,0);
+    SELECT CONCAT('La actividad ',nombre,' ha sido correctamente registrada');
+ELSE
+	SELECT CONCAT('El trabajador y/ la se ingresada son incorrectas');
+END IF;
+END \\
+
+-- Procedimiento almacenado baja de actividad
+DELIMITER \\
+CREATE DEFINER=`root`@`localhost` PROCEDURE `baja_actividad`(IN actividad INT)
+BEGIN
+IF (actividad BETWEEN 1 AND (SELECT COUNT(id_trabajador) FROM actividades)) THEN
+    DELETE FROM actividades WHERE id_actividad = actividad;
+	SELECT CONCAT('La actividad ingresada fue eliminada');
+ELSE
+	SELECT CONCAT('La actividad ingresada no existe');
+END IF;
+END \\
