@@ -1,4 +1,3 @@
-
 -- Script de inserción de datos
 USE dbcasasan;
 -- SET FOREIGN_KEY_CHECKS=0;
@@ -296,3 +295,4 @@ VALUES
 
 -- Para poder hacer la inserción de datos del campo inscriptos_actividad de la tabla actividades preciso hacer un update 
 UPDATE actividades SET inscriptos_actividad = (SELECT COUNT(id_actividad) FROM inscripciones WHERE inscripciones.id_actividad = actividades.id_actividad);
+
